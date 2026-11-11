@@ -1,0 +1,20 @@
+{
+  "name": "gamdo-tablet",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "node scripts/check-config.mjs && wrangler deploy",
+    "check": "node --test tests/*.test.mjs",
+    "db:create": "wrangler d1 create gamdo-exhibition",
+    "db:local": "wrangler d1 migrations apply DB --local",
+    "db:remote": "node scripts/check-config.mjs && wrangler d1 migrations apply DB --remote"
+  },
+  "devDependencies": {
+    "wrangler": "4.92.0"
+  }
+}
