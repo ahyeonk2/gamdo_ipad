@@ -2,7 +2,7 @@ import {gardenSummaryEdits} from './garden-summaries.js?v=1';
 
 import {transferReceipt} from './receipt-transfer.js?v=1';
 import {createTicketImage} from './ticket-image.js?v=166';
-import {ticketContents,ticketDate,ticketDescription} from './ticket.js?v=6';
+import {ticketContents,ticketDate,ticketDescription,ticketAxes} from './ticket.js?v=7';
 import {reviewState,reviewsReady as validReviews} from './review-validation.js?v=1';
 import {stepGarden,AUTO_PANEL_MS,PANEL_HOLD_MS} from './garden-motion.js?v=94';
 const creatorMode=new URLSearchParams(location.search).get('mode')==='create';document.body.classList.add(creatorMode?'creator-mode':'projection-mode');
@@ -174,7 +174,7 @@ function prepareTicketImage(){
  if(receiptImagePromise)return receiptImagePromise;
  const version=++receiptImageVersion,record=ticketRecord,image=$('#receiptImage');
  if(!record)return Promise.resolve(null);
- const axes=record.profile.axes.map(a=>({name:a.name,value:(a.status==='unknown'||a.level==='부족')?50:a.value,unknown:a.status==='unknown'||a.level==='부족',label:a.direction}));
+ const axes=ticketAxes(record);
  receiptImagePromise=createTicketImage({svg:$('#previewFlower svg'),date:ticketDate(record.createdAt),title:record.profile.title,movies:record.movies,description:ticketDescription(record.profile),axes,colors:(record.profile.palette||[{mood:record.profile.mood}]).map(c=>MOODS[c.mood]?.name||c.mood),accent:MOODS[record.profile.mood]?.hex}).then(url=>{if(version!==receiptImageVersion)return null;image.src=url;image.hidden=true;return url;}).catch(error=>{receiptImagePromise=null;throw error;});
  return receiptImagePromise;
 }
