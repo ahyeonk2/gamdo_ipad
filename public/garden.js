@@ -1,7 +1,6 @@
 import {gardenSummaryEdits} from './garden-summaries.js?v=1';
 
 import {transferReceipt} from './receipt-transfer.js?v=1';
-import {createTicketImage} from './ticket-image.js?v=166';
 import {ticketContents,ticketDate,ticketDescription,ticketAxes} from './ticket.js?v=7';
 import {reviewState,reviewsReady as validReviews} from './review-validation.js?v=1';
 import {stepGarden,AUTO_PANEL_MS,PANEL_HOLD_MS} from './garden-motion.js?v=94';
@@ -151,12 +150,9 @@ function fitReceiptFlower(){
  const side=Math.max(box.width*Math.hypot(toRoot.a,toRoot.b),box.height*Math.hypot(toRoot.c,toRoot.d))*1.15;
  svg.setAttribute('viewBox',`${center.x-side/2} ${center.y-side/2} ${side} ${side}`);
 }
-let ticketRecord=null;
 function showFlowerPreview(){
- const record=pendingFlower,dialog=$('#flowerPreview');ticketRecord=record;
- ++receiptImageVersion;receiptImagePromise=null;
+ const record=pendingFlower,dialog=$('#flowerPreview');
  dialog.classList.remove('has-ticket-image','show-wall-tip');dialog.classList.add('live-result');
- $('#receiptImage').hidden=true;$('#receiptImage').removeAttribute('src');$('#receiptImageStatus').textContent='';
  dialog.querySelector('.ticket-sheet').innerHTML=`<header class="receipt-head"><h2>GAMDO</h2><time id="receiptDate"></time></header><div class="result-tab"><section class="result-visual" aria-label="나의 취향 꽃"><div id="previewFlower"></div></section><div class="result-content"><p id="previewName" hidden></p><article id="receipt"></article></div></div>`;
  const date=new Date(record.createdAt||NaN),stamp=$('#receiptDate');stamp.textContent=ticketDate(record.createdAt);if(Number.isFinite(+date))stamp.dateTime=date.toISOString();
  $('#previewFlower').innerHTML=generateRecord(record,'preview-'+record.id).svg;
@@ -169,17 +165,6 @@ function showFlowerPreview(){
  openDialog('flowerPreview');dialog.scrollTop=0;
 }
 $('#previewEdit').onclick=()=>{$('#flowerPreview').close();pendingFlower=null;sessionId=null;movieStage(2);openDialog('entry')};
-let receiptImagePromise=null,receiptImageVersion=0;
-function prepareTicketImage(){
- if(receiptImagePromise)return receiptImagePromise;
- const version=++receiptImageVersion,record=ticketRecord,image=$('#receiptImage');
- if(!record)return Promise.resolve(null);
- const axes=ticketAxes(record);
- receiptImagePromise=createTicketImage({svg:$('#previewFlower svg'),date:ticketDate(record.createdAt),title:record.profile.title,movies:record.movies,description:ticketDescription(record.profile),axes,colors:(record.profile.palette||[{mood:record.profile.mood}]).map(c=>MOODS[c.mood]?.name||c.mood),accent:MOODS[record.profile.mood]?.hex}).then(url=>{if(version!==receiptImageVersion)return null;image.src=url;image.hidden=true;return url;}).catch(error=>{receiptImagePromise=null;throw error;});
- return receiptImagePromise;
-}
-async function printTicket(){const buttons=[$('#printReceipt'),$('#printReceiptPreview')];buttons.forEach(b=>b.disabled=true);try{if(!await prepareTicketImage())return;await $('#receiptImage').decode();window.print();}catch(error){$('#receiptImageStatus').textContent=error.message;}finally{buttons.forEach(b=>b.disabled=false);}}
-$('#printReceipt').onclick=printTicket;$('#printReceiptPreview').onclick=printTicket;
 $('#plantFlower').onclick=async()=>{
  if(!pendingFlower||$('#plantFlower').disabled)return;
  const id=pendingFlower.id,preview=$('#flowerPreview'),buttons=preview.querySelectorAll('button');
@@ -211,7 +196,7 @@ $('#reviewForm').onsubmit=e=>{e.preventDefault();if(entryStage===1){searchMovies
 let resizeTimer;addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(layout,180)});
 async function init(){try{const demos=await fetch('/demo-records.json?v=120').then(r=>r.json());records=samples(demos);
  if(['receipt','receipt-ipad'].includes(new URLSearchParams(location.search).get('preview'))&&records.length){
-   pendingFlower=records[0];const tabletPreview=new URLSearchParams(location.search).get('preview')==='receipt-ipad';if(!tabletPreview)document.body.classList.add('receipt-demo');else{document.body.classList.add('creator-mode');document.body.classList.remove('projection-mode');}showFlowerPreview();if(!tabletPreview){$('#flowerPreview').close();$('#flowerPreview').setAttribute('open','');}$('#plantFlower').disabled=true;if(new URLSearchParams(location.search).get('motion')==='1'){$('#plantFlower').disabled=false;$('#plantFlower').onclick=async()=>{const button=$('#plantFlower');button.disabled=true;try{const clear=await transferReceipt($('#flowerPreview'),$('#receiptImage'),MOODS[pendingFlower.profile.mood]?.hex);clear();}finally{button.disabled=false;}};}return;
+   pendingFlower=records[0];const tabletPreview=new URLSearchParams(location.search).get('preview')==='receipt-ipad';if(!tabletPreview)document.body.classList.add('receipt-demo');else{document.body.classList.add('creator-mode');document.body.classList.remove('projection-mode');}showFlowerPreview();if(!tabletPreview){$('#flowerPreview').close();$('#flowerPreview').setAttribute('open','');}$('#plantFlower').disabled=true;if(new URLSearchParams(location.search).get('motion')==='1'){$('#plantFlower').disabled=false;$('#plantFlower').onclick=async()=>{const button=$('#plantFlower');button.disabled=true;try{const clear=await transferReceipt($('#flowerPreview'),$('#flowerPreview .ticket-sheet'),MOODS[pendingFlower.profile.mood]?.hex);clear();}finally{button.disabled=false;}};}return;
  }
  layout();wake();try{const r=await fetch(creatorMode?'/api/taste/flowers':'/api/taste/projection');if(r.ok){const data=await r.json();if(data.records.length){records.push(...data.records);layout()}}}catch{toast('나의 기록을 불러오지 못했습니다. 새로고침해 주세요.')}const s=await fetch('/api/taste/status').then(r=>r.json());$('#connection').textContent=`분석 키 ${s.analysisConfigured?'설정됨':'미설정'} · API 잔액은 분석 요청 시 확인 · 영화 검색 ${s.moviesConfigured?'설정됨':'미설정'}`;$('#tmdb-credit').hidden=!s.moviesConfigured}catch{toast('정원을 불러오지 못했습니다. 새로고침해 주세요.')}}init();
 

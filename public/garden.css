@@ -736,7 +736,7 @@ dialog .close>svg,#entry .movie-search button>svg{display:block;flex:none;margin
  #flowerPreview.live-result .panel-color p{font-size:11px;line-height:1.7;color:#9c7d8b;margin:4px 0 0;white-space:pre-line}
  #flowerPreview.live-result>#receiptImage{display:none!important}
  #flowerPreview.live-result>.receipt-export{display:block;grid-column:1;grid-row:2;margin:0}
- #flowerPreview.live-result>.preview-actions{display:block;grid-column:2;grid-row:2;margin:0}
+ #flowerPreview.live-result>.preview-actions{display:block;grid-column:1/-1;grid-row:2;margin:0}
  #flowerPreview.live-result>.receipt-export button,#flowerPreview.live-result>.preview-actions button{width:100%;height:46px;min-height:46px;font-size:14px;border-radius:999px;padding:10px 14px;margin:0}
  #flowerPreview.live-result>.receipt-export button{border:1px solid #e8a6c0;color:#bc6b8c;background:white}
  #flowerPreview.live-result #plantFlower{border:0;background:#e783a8;color:white}
