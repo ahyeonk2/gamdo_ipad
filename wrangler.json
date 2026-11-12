@@ -9,7 +9,8 @@
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
-    "run_worker_first": true
+    "run_worker_first": true,
+    "html_handling": "none"
   },
   "observability": {
     "enabled": true
@@ -18,7 +19,7 @@
     {
       "binding": "DB",
       "database_name": "gamdo-exhibition",
-      "database_id": "00000000-0000-4000-8000-000000000000",
+      "database_id": "5538b8b1-307f-4d23-ae90-e823917d8344",
       "migrations_dir": "migrations"
     }
   ],

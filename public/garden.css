@@ -1,0 +1,752 @@
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fefefe;color:#3e3b43;font:14px/1.65 -apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif}button,input,textarea{font:inherit}button,a{ -webkit-tap-highlight-color:transparent}button{cursor:pointer;color:inherit;background:#fefefe;border:1px solid #e8e5e9;border-radius:24px;padding:9px 16px}button:hover{border-color:#aaa}button:disabled{opacity:.5;cursor:wait}button:focus-visible,a:focus-visible{outline:2px solid #9f84b8;outline-offset:5px}#garden{position:absolute;inset:0;overflow:hidden;touch-action:pan-y;cursor:grab}#garden.dragging{cursor:grabbing}#world{position:absolute;inset:0;will-change:transform}.bloom{position:absolute;transform:translate(-50%,-50%);isolation:isolate}.floating{width:100%;height:100%;will-change:transform}.flower{display:block;position:absolute;inset:0;padding:0;border:0;background:none;width:100%;height:100%;border-radius:50%;overflow:visible}.flower:hover{border:0}.flower svg,#selected svg{display:block;width:100%;height:100%;overflow:visible;pointer-events:none}.bloom.open{z-index:20}.petal{transform-box:view-box;transform-origin:0px 0px;transition:transform 850ms cubic-bezier(.16,1,.3,1)}.orbit{position:absolute;width:68px;height:68px;border:1px solid #fefefe;border-radius:50%;overflow:hidden;padding:0;background:#f1edf3;box-shadow:0 5px 22px #59445d14;left:50%;top:50%;opacity:0;pointer-events:none;transform:translate(-50%,-50%) rotate(-30deg) scale(.45);transition:transform 700ms cubic-bezier(.16,1,.3,1),opacity 400ms}.orbit img{width:100%;height:100%;object-fit:cover}.orbit span{font-size:10px;line-height:1.4;display:grid;place-content:center;padding:7px;height:100%}.bloom.open .orbit{opacity:1;pointer-events:auto;transform:translate(calc(-50% + var(--ox)),calc(-50% + var(--oy))) rotate(0) scale(1)}.edge{position:fixed;z-index:30;display:flex;align-items:center;gap:7px}.top{right:25px;top:20px}.bottom{bottom:24px;left:50%;transform:translateX(-50%)}.edge button{font-size:12px;background:#fefefee8;backdrop-filter:blur(12px)}.create{min-width:142px}.edge #pause{font-size:16px;min-width:42px}#notice{position:fixed;left:50%;top:24px;transform:translateX(-50%);z-index:40;font-size:12px;pointer-events:none;background:#fefefee6;padding:5px 14px;border-radius:20px}#notice:empty{display:none}dialog{padding:0;border:1px solid #eee;border-radius:24px;max-height:90dvh;max-width:calc(100vw - 32px);background:#fefefe;color:inherit;box-shadow:0 28px 100px #352c4026}dialog::backdrop{background:#fefefed9;backdrop-filter:blur(8px)}dialog .close{position:sticky;top:14px;float:right;margin:14px 16px 0 0;z-index:4;width:38px;height:38px;padding:0;font-size:24px}.detail-layout{display:grid;grid-template-columns:1fr 1fr;gap:35px;padding:20px 45px 48px;width:min(1160px,94vw)}#selected{position:sticky;top:70px;align-self:start;margin-top:40px}#profile{padding-top:20px}h1,h2{line-height:1.3;font-weight:500;letter-spacing:-.04em}h1{font-size:29px}h2{font-size:26px}h3{font-size:14px;font-weight:600;margin-top:26px}p{color:#79727e}small,.overline{font-size:11px;color:#9a8f9d}.tags{display:flex;gap:6px;flex-wrap:wrap}.tags span{border:1px solid #e9e4eb;border-radius:20px;padding:4px 12px;font-size:11px}.film{display:grid;grid-template-columns:52px 1fr;gap:14px;margin:24px 0}.film img,.film .placeholder{width:52px;height:70px;border-radius:7px;object-fit:cover;background:#eee}.film p{font-size:12px;margin:4px 0}.film a{font-size:10px;color:#999}.axis{margin:16px 0;font-size:12px}.axis summary{cursor:pointer}.bar{height:3px;background:#eee;border-radius:4px;margin:8px 0}.bar i{height:100%;display:block;background:#bba9c6}.axis p{font-size:11px}.axis .unknown{color:#a18e78}.swatch{display:inline-block;width:18px;height:18px;border-radius:50%;vertical-align:middle;margin-right:8px}.sample{display:inline-block;font-size:11px;border-radius:5px;padding:4px 8px;background:#f4f0e9;color:#8a755c}#entry{width:640px;padding:12px 34px 34px}#entry h1{font-size:26px}#entry p{font-size:12px}fieldset{border:0;border-top:1px solid #eee;margin:24px 0;padding:20px 0 0}legend{font-size:11px;color:#aaa}input,textarea{border:1px solid #e3dfe7;border-radius:10px;padding:12px;width:100%;background:white;color:inherit}textarea{height:110px;resize:vertical;margin-top:10px}label{display:block;font-size:12px;margin-top:9px}.searchline{display:flex;gap:8px}.searchline button{white-space:nowrap}.results{display:grid;gap:5px;margin-top:6px}.results button{text-align:left;border-radius:8px;font-size:12px}.results img{width:26px;height:36px;object-fit:cover;vertical-align:middle;margin-right:10px}.chosen{font-size:11px;color:#8b7a91}.submit-row{display:flex;gap:8px;flex-wrap:wrap}#submit{background:#54495c;color:white}#status{white-space:pre-line;color:#865c62}.privacy{border-top:1px solid #eee;padding-top:18px}#info{width:510px;padding:15px 30px 36px}#info h2{margin-top:45px}#info a{color:#776683}.reduced .petal,.reduced .orbit{transition-duration:0ms}@media(max-width:700px){.top{top:12px;right:12px}.bottom{bottom:16px}.detail-layout{display:block;padding:15px 25px 35px}#selected{position:relative;margin:0 auto;width:200px;top:0}#entry{padding:10px 22px 28px}.orbit{width:56px;height:56px}#reduce{font-size:10px}#notice{top:64px;white-space:nowrap}#profile h2{font-size:24px}}@media(prefers-reduced-motion:reduce){.petal,.orbit{transition:none}}
+
+/* Keep the original SVG intact; hover opens the whole flower quietly. */
+.flower{transform:rotate(-5deg) scale(.94);transition:transform 900ms cubic-bezier(.2,.7,.2,1)}.bloom.open .flower{transform:rotate(7deg) scale(1)}.reduced .flower{transition:none;transform:none}.reduced .bloom.open .flower{transform:none}@media(prefers-reduced-motion:reduce){.flower,.bloom.open .flower{transition:none;transform:none}}
+
+.flower .idle-art,.flower .clear-art{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;transition:opacity 650ms ease}.flower .clear-art{opacity:0}.bloom.open .idle-art{opacity:0}.bloom.open .clear-art{opacity:1}.reduced .idle-art,.reduced .clear-art{transition:none}@media(prefers-reduced-motion:reduce){.flower .idle-art,.flower .clear-art{transition:none}}
+
+/* One-time unfolding of a newly generated flower; the original SVG groups remain intact. */
+.birth-art{position:absolute;inset:0;display:block;pointer-events:none}.being-born .flower>.idle-art,.being-born .flower>.clear-art{opacity:0!important}.birth-art svg{width:100%;height:100%}.birth-petal{transform-box:view-box;transform-origin:0px 0px;animation:petal-birth 1350ms cubic-bezier(.16,.7,.22,1) both}.birth-art{animation:birth-arrival 700ms ease-out both}@keyframes petal-birth{0%{opacity:0;transform:rotate(-24deg) scale(.08)}35%{opacity:1}100%{opacity:1;transform:rotate(0) scale(1)}}@keyframes birth-arrival{from{opacity:0}to{opacity:1}}.reduced .birth-petal{animation:none}@media(prefers-reduced-motion:reduce){.birth-petal,.birth-art{animation:none}}
+
+.awaiting-birth .flower{visibility:hidden}
+
+/* Cache exact SVG appearance once; float the resulting bitmap on a composited layer. */
+.flower .idle-art{opacity:1!important;transition:none;object-fit:contain}.floating{animation:garden-float 13s ease-in-out infinite;transform:translate3d(0,0,0);backface-visibility:hidden}.paused .floating,.reduced .floating,body:has(dialog[open]) .floating{animation-play-state:paused}.reduced .floating{animation:none}@keyframes garden-float{0%,100%{transform:translate3d(calc(-1 * var(--dx)),var(--dy),0) rotate(calc(-1 * var(--rot)))}50%{transform:translate3d(var(--dx),calc(-1 * var(--dy)),0) rotate(var(--rot))}}@media(prefers-reduced-motion:reduce){.floating{animation:none}}.being-born .flower>.idle-art{opacity:0!important}
+
+.review-original{white-space:pre-wrap;overflow-wrap:anywhere}
+
+
+/* White glass movie picker: the empty poster frames reveal the garden behind. */
+#entry{width:650px;padding:40px 42px 28px;max-height:90dvh;border:1px solid #ffffffdf;border-radius:26px;background:linear-gradient(145deg,#ffffffc9,#ffffff7d 55%,#ffffffb3);backdrop-filter:blur(28px) saturate(1.12);-webkit-backdrop-filter:blur(28px) saturate(1.12);box-shadow:inset 0 1px 1px #fff,0 24px 85px #4248501a,0 2px 10px #ffffff80;color:#232624;overflow-y:auto}#entry::backdrop{background:#f2f4f326;backdrop-filter:blur(7px)}#entry .close{position:absolute;right:14px;top:12px;float:none;margin:0;border:0;background:transparent;font-size:23px;color:#7a817d;width:28px;height:28px}#entry [hidden]{display:none!important}#entry h1{font-size:22px;line-height:1.45;letter-spacing:-.055em;font-weight:600;margin:0 0 25px;padding-right:9px}#entry .movie-search{display:flex;align-items:center;background:#ffffffb5;border:1px solid #ffffffc9;border-radius:13px;padding:0 6px 0 15px;box-shadow:inset 0 1px 1px #fff;margin-bottom:18px}#entry .movie-search input{background:transparent;border:0;padding:13px 0;font-size:12px;outline:none;min-width:0}#entry .movie-search:focus-within{outline:1px solid #b7c69f}#entry .movie-search button{background:transparent;border:0;padding:9px;display:grid;place-content:center;color:#313a31}#entry .movie-slots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px;margin-top:28px}.movie-slot{position:relative;min-width:0}.poster-slot{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;width:100%;aspect-ratio:2/3;padding:0;overflow:hidden;border-radius:7px;border:1px solid #9ca79b45;background:#ffffff0d;box-shadow:inset 0 1px 2px #fff9,0 1px 0 #ffffff90;transition:background .2s,border-color .2s}.poster-slot:hover{background:#ffffff38;border-color:#9eae8b99}.poster-slot.has-movie{background:#ffffff55;border-color:#fff9}.poster-slot img{width:100%;height:100%;object-fit:cover}.empty-plus{font-size:21px;font-weight:200;color:#929d8c6b}.empty-label{font-size:10px;color:#8a948278}.movie-slot .remove-movie{position:absolute;right:5px;top:5px;width:23px;height:23px;padding:0;border:1px solid #fff8;background:#fff9;backdrop-filter:blur(8px);font-size:17px;line-height:1}.movie-slot h2{font-size:13px;line-height:1.4;font-weight:600;margin:12px 0 5px;overflow-wrap:anywhere;letter-spacing:-.025em}#entry .movie-slot p{font-size:10px;color:#788071;margin:2px 0;line-height:1.5}.empty-meta{height:57px}#entry #selectionStatus{min-height:0;margin:6px 0;font-size:11px;color:#8a655f}#entry #selectionStatus:empty{margin:0}#entry #movieNext{width:100%;border:1px solid #dceac1;background:#deebc4;border-radius:15px;padding:12px 0;font-size:18px;font-weight:400;color:#253023;margin-top:20px;transition:background .2s}#entry #movieNext:disabled{opacity:.62;cursor:default}#entry #movieNext:not(:disabled):hover{background:#d3e5ae}.movie-credit{display:block;text-align:center;font-size:9px;margin-top:11px;color:#8b9386}.movie-results:empty{display:none}.movie-results{max-height:225px;overflow-y:auto;border-radius:12px;font-size:12px;color:#7b8278;background:#ffffff6b}.movie-result{display:flex;width:100%;align-items:center;text-align:left;gap:12px;border:0;border-bottom:1px solid #ffffffa3;background:transparent;border-radius:0;padding:9px 12px}.movie-result:hover{background:#ffffffa3}.movie-result img,.result-placeholder{width:32px;height:47px;border-radius:3px;object-fit:cover;background:#e5e9df}.movie-result b{font-size:12px;font-weight:500}.movie-result small{display:block;font-size:10px;color:#8d9686}.result-add{margin-left:auto;color:#7b8d6c;font-size:18px}.step-back{padding:0;border:0;background:none;font-size:11px;color:#7b8771;margin:0 0 9px}#entry textarea{background:#ffffff8f;border-color:#cbd2c480}#entry fieldset{border-color:#ffffffb3}#entry legend{color:#5f6b55;font-size:12px}#entry #submit{background:#deebc4;color:#253023;border-color:#d4e3bb}#entry .privacy{border-color:#ffffffc4;color:#828979}
+@media(max-width:600px){#entry{width:calc(100vw - 28px);padding:40px 22px 22px;border-radius:22px}#entry h1{font-size:18px;max-width:95%}#entry .movie-slots{gap:13px;margin-top:24px}.movie-slot h2{font-size:11px}#entry .movie-slot p{font-size:9px}.empty-label{font-size:9px}#entry #movieNext{font-size:16px}.empty-meta{height:48px}}
+/* Passive poster wells; search suggestions float directly under the search field. */
+#movieStep{position:relative}.poster-slot{cursor:default}.poster-slot:hover{background:#ffffff0d;border-color:#9ca79b45}.poster-slot.has-movie:hover{background:#ffffff55;border-color:#fff9}.empty-label{font-size:14px;color:#87907f;line-height:1.5;text-align:center;padding:8px}.movie-results:not(:empty){position:absolute;left:0;right:0;top:57px;z-index:10;max-height:264px;background:#fffffff5;border:1px solid #e3e9dd;box-shadow:0 12px 30px #45533a1a;backdrop-filter:blur(24px);padding:5px 0}.movie-results{font-size:14px}.movie-result{padding:10px 14px;gap:13px}.movie-result b{font-size:15px}.movie-result small{font-size:13px}.movie-result img,.result-placeholder{width:34px;height:50px}.movie-result:focus-visible{outline-offset:-3px;background:#eef4e7}.result-add{font-size:20px}#entry .movie-search input{font-size:15px}#entry .movie-slot h2{font-size:15px;line-height:1.45}#entry .movie-slot p{font-size:13px;line-height:1.6}#entry #selectionStatus{font-size:13px}.movie-credit{font-size:12px}#entry #reviewStep p,#entry #reviewStep label,#entry #reviewStep textarea{font-size:14px}#entry #reviewStep legend{font-size:14px}.step-back{font-size:13px}.empty-meta{height:73px}#entry .remove-movie{width:26px;height:26px;font-size:20px}
+@media(max-width:600px){.empty-label{font-size:12px;padding:5px}#entry .movie-slot h2{font-size:14px}#entry .movie-slot p{font-size:12px}#entry .movie-search input{font-size:15px}.movie-credit{font-size:11px}}
+.movie-result>span:not(.result-add):not(.result-placeholder){min-width:0}.movie-result small{line-height:1.55;white-space:normal;overflow-wrap:anywhere}.movie-result .result-add{flex-shrink:0}.movie-result img,.movie-result .result-placeholder{flex-shrink:0}
+.review-guide{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 14px}.review-guide span{font-size:12px;padding:5px 9px;background:#edf2e480;border:1px solid #ffffffa6;border-radius:8px;color:#707b64}#entry .review-count{display:block;font-size:12px;margin-top:4px;color:#929986}#entry #inputs textarea{min-height:145px;line-height:1.8}.being-born .floating{animation-play-state:paused}#flowerPreview{width:580px;padding:20px 32px 32px;text-align:center;background:linear-gradient(145deg,#fffffff2,#ffffffe0);border:1px solid white;backdrop-filter:blur(25px)}#previewFlower{width:min(380px,70vw);height:min(380px,70vw);margin:0 auto}#previewFlower svg{width:100%;height:100%;overflow:visible}#flowerPreview h2{font-size:24px;margin:0 0 12px}#previewName{font-size:14px;color:#777}#flowerPreview .preview-private{font-size:12px;color:#929986}.preview-actions{display:flex;gap:10px;justify-content:center;margin-top:24px}.preview-actions button{font-size:14px;padding:12px 22px}#plantFlower{background:#deebc4;border-color:#d5e4b9;color:#263422}#plantStatus{font-size:12px;color:#906967}@media(max-width:600px){#flowerPreview{padding:20px 20px 28px}#flowerPreview h2{font-size:21px}}
+/* One synchronized opening: no static finishing layers or completed bitmap behind it. */
+.opening-source{visibility:hidden}.blooming-svg{clip-path:circle(0% at 50% 50%);animation:flower-reveal 520ms cubic-bezier(.18,.65,.2,1) both}.blooming-petal{transform-box:view-box;transform-origin:0 0;opacity:0;animation:petal-unfold 440ms cubic-bezier(.16,.68,.2,1) both}.blooming-finish{transform-box:view-box;transform-origin:0 0;opacity:0;animation:finish-unfold 560ms cubic-bezier(.16,.68,.2,1) both}#detail.bloom-dialog{animation:dialog-unfold 1000ms cubic-bezier(.16,.7,.2,1) both}#detail.bloom-dialog::backdrop{animation:dialog-backdrop 900ms ease-out both}#detail.bloom-dialog #profile{animation:profile-unfold 850ms 200ms ease-out both}@keyframes flower-reveal{from{clip-path:circle(0% at 50% 50%)}to{clip-path:circle(75% at 50% 50%)}}@keyframes petal-unfold{0%{opacity:0;transform:rotate(-22deg) scale(.025)}20%{opacity:1}100%{opacity:1;transform:rotate(0) scale(1)}}@keyframes finish-unfold{0%{opacity:0;transform:scale(.025)}25%{opacity:0}100%{opacity:1;transform:scale(1)}}@keyframes dialog-unfold{from{opacity:0;clip-path:inset(42% 45% round 50px);transform:scale(.86)}to{opacity:1;clip-path:inset(0 round 24px);transform:scale(1)}}@keyframes dialog-backdrop{from{opacity:0}to{opacity:1}}@keyframes profile-unfold{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}.reduced .blooming-svg,.reduced .blooming-petal,.reduced .blooming-finish,.reduced #detail.bloom-dialog,.reduced #detail.bloom-dialog #profile{animation:none;opacity:1;clip-path:none;transform:none}@media(prefers-reduced-motion:reduce){.blooming-svg,.blooming-petal,.blooming-finish,#detail.bloom-dialog,#detail.bloom-dialog #profile{animation:none;opacity:1;clip-path:none;transform:none}}
+/* The flower completes first; the dialog then enters without repaint-heavy clipping. */
+#detail.bloom-dialog{animation:dialog-after-bloom 240ms cubic-bezier(.2,.7,.2,1) both}#detail.bloom-dialog::backdrop{animation:dialog-backdrop 240ms ease-out both}#detail.bloom-dialog #profile{animation:profile-unfold 220ms 25ms ease-out both}#detail::backdrop{backdrop-filter:blur(3px);background:#fefefec7}@keyframes dialog-after-bloom{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+/* An anchored glass pane in the garden, not a separate modal screen. */
+#detail{position:fixed;margin:0;inset:auto;z-index:35;width:410px;max-width:calc(100vw - 28px);max-height:calc(100dvh - 44px);padding:28px 27px 22px;border:1px solid #ffffffe3;border-radius:22px;background:linear-gradient(140deg,#ffffffb8,#ffffff7d 54%,#ffffffa6);backdrop-filter:blur(22px) saturate(1.08);-webkit-backdrop-filter:blur(22px) saturate(1.08);box-shadow:inset 0 1px 1px #fff,0 14px 46px #52634b17,0 1px 3px #ffffff70;overflow:auto;color:#343c32}#detail::backdrop{display:none}#detail .close{position:absolute;right:10px;top:9px;float:none;margin:0;border:0;background:#ffffff32;width:26px;height:26px;font-size:21px;color:#7e887a}#detail #selected{display:none!important}#detail #profile{padding:0}#detail #profile h2{font-size:21px;font-weight:600;line-height:1.4;margin:7px 0 10px;letter-spacing:-.045em;padding-right:7px}.panel-source{font-size:10px;color:#8d9687}#detail .taste-summary{font-size:13px;line-height:1.75;color:#6f7868;margin:0 0 21px}.panel-films{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;margin:0 0 22px}.panel-film img,.panel-poster-fallback{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:4px;background:#ffffff50;border:1px solid #ffffffb3}.panel-poster-fallback{font-size:11px;display:grid;place-content:center;padding:8px;color:#8c9585}.panel-film h3{font-size:11px;font-weight:600;line-height:1.4;margin:8px 0 2px;color:#3b4437;overflow-wrap:anywhere}.panel-film>span{font-size:10px;color:#8a9381}.panel-film[data-highlight]{outline:1px solid #becfac;outline-offset:6px;border-radius:4px}.panel-axes{display:grid;gap:11px;margin-bottom:24px}.panel-axis>div:first-child{display:flex;align-items:center;gap:11px;font-size:11px}.panel-axis b{font-weight:500;min-width:25px;color:#525e49}.panel-axis span{color:#8a9382;font-size:11px}.panel-axis em{margin-left:auto;font-size:11px;font-style:normal;color:#737f68}.panel-axis-track{height:2px;background:#dce4d94f;margin-top:6px;border-radius:3px;overflow:hidden}.panel-axis-track i{display:block;height:100%;background:#a7b898;border-radius:3px}.panel-color{display:flex;align-items:flex-start;gap:14px}.panel-color>i{display:block;width:40px;height:40px;flex-shrink:0;border-radius:50%;box-shadow:inset 0 1px 5px #ffffff78}.panel-color b{font-size:11px;font-weight:500;color:#67745b}#detail .panel-color p{font-size:11px;line-height:1.7;margin:4px 0 0;color:#8a9380}.panel-note{display:block;margin-top:17px;font-size:9px;color:#9aa18f}#detailLink{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:24;overflow:visible}#detailLink[hidden]{display:none}#detailLink path{fill:none;stroke:#b7c5ab;stroke-width:.8;opacity:.55}#detailLink circle{fill:#c3cfb8;opacity:.7}.bloom.selected{z-index:23}.bloom.selected .floating{animation-play-state:paused!important}body:not(.paused):not(.reduced):has(#detail[open]):not(:has(#entry[open])):not(:has(#flowerPreview[open])) .floating{animation-play-state:running}#detail.bloom-dialog{animation:ar-pane-enter 300ms cubic-bezier(.2,.7,.2,1) both}#detail.bloom-dialog #profile{animation:none}@keyframes ar-pane-enter{from{opacity:0;transform:translateX(var(--panel-from,14px)) scale(.975)}to{opacity:1;transform:translateX(0) scale(1)}}@media(max-width:640px){#detail{width:350px;padding:25px 22px 20px;max-height:70dvh}#detail #profile h2{font-size:19px}.panel-films{gap:14px}#detail .taste-summary{font-size:12px}.panel-axes{gap:10px}.panel-film h3{font-size:11px}}@media(prefers-reduced-motion:reduce){#detail.bloom-dialog{animation:none}}
+/* Never draw the full open silhouette behind unfolding petals. */
+.blooming-svg [data-finish],.blooming-svg [data-module="core"]{visibility:hidden!important}.panel-axes{display:flex;flex-direction:column;gap:0}.panel-axis{height:38px;display:grid;grid-template-rows:22px 3px;row-gap:5px;flex-shrink:0}.panel-axis-track{margin:0!important;height:3px!important;min-height:3px;line-height:0;background:color-mix(in srgb,var(--flower-accent) 18%,transparent);border-radius:0}.panel-axis-track i{height:3px!important;min-height:3px;display:block;border-radius:0;background:var(--flower-accent,#a7b898)}.panel-axis em{color:color-mix(in srgb,var(--flower-accent) 60%,#384033)}
+/* A visible closed bud, not a scaled-down open flower. All six petals open together. */
+.birth-art{animation:none}.blooming-svg{clip-path:none;animation:none}.blooming-petal{opacity:1;animation:bud-to-flower 560ms cubic-bezier(.22,.66,.24,1) both;animation-delay:0ms!important;will-change:transform}@keyframes bud-to-flower{0%,12%{opacity:1;transform:var(--bud-transform)}100%{opacity:1;transform:rotate(0deg) scale(1,1) rotate(0deg)}}@media(prefers-reduced-motion:reduce){.blooming-petal{animation:none;transform:none}}
+
+body:has(#detail[open]) .floating{animation-play-state:paused!important}
+
+#detail.bloom-dialog{animation:gentle-panel-fade 650ms ease-out both}@keyframes gentle-panel-fade{from{opacity:0}to{opacity:1}}@media(prefers-reduced-motion:reduce){#detail.bloom-dialog{animation:none}}
+
+/* The glass panel emerges from the selected flower's center. */
+#detail.bloom-dialog{animation:flower-light-panel 620ms cubic-bezier(.16,.8,.22,1) both}
+#detail.bloom-dialog #profile{animation:flower-light-content 420ms 130ms ease-out both}
+@keyframes flower-light-panel{0%{opacity:0;transform:scale(.045);filter:blur(9px)}24%{opacity:.55;filter:blur(4px)}72%{opacity:1;filter:blur(0)}100%{opacity:1;transform:scale(1);filter:blur(0)}}
+@keyframes flower-light-content{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.panel-bloom-light{position:fixed;z-index:36;pointer-events:none;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,#fff 0%,#ffffffec 12%,color-mix(in srgb,var(--light-color) 40%,transparent) 35%,transparent 70%);animation:flower-panel-light 700ms ease-out both}
+@keyframes flower-panel-light{0%{opacity:0;transform:translate(-50%,-50%) scale(.15)}20%{opacity:.85}100%{opacity:0;transform:translate(-50%,-50%) scale(1.8)}}
+#detailLink{display:none!important}
+.reduced #detail.bloom-dialog,.reduced #detail.bloom-dialog #profile{animation:none}
+@media(prefers-reduced-motion:reduce){#detail.bloom-dialog,#detail.bloom-dialog #profile{animation:none}.panel-bloom-light{display:none}}
+
+/* Light belongs to the panel; selection glow traces only the flower alpha edge. */
+#detail.bloom-dialog{transform-origin:center!important;animation:panel-light-appear 480ms cubic-bezier(.16,.8,.22,1) both}
+@keyframes panel-light-appear{0%{opacity:0;transform:scale(.91);filter:blur(7px);box-shadow:0 0 38px #fff}45%{opacity:1;filter:blur(1px)}100%{opacity:1;transform:scale(1);filter:blur(0)}}
+.panel-bloom-light{width:230px;height:180px;z-index:36}
+.selection-outline{position:absolute;inset:0;pointer-events:none;z-index:3;filter:drop-shadow(0 0 3px #ffffff) drop-shadow(0 0 5px #d3c4ed);opacity:.95}
+.selection-outline svg{width:100%;height:100%;display:block}
+.reduced #detail.bloom-dialog{animation:none}@media(prefers-reduced-motion:reduce){#detail.bloom-dialog{animation:none}}
+
+/* Only transform/opacity animate; expensive filters are no longer animated. */
+#detail{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+#detail.bloom-dialog{animation:lightweight-pane 420ms cubic-bezier(.16,.8,.22,1) both}
+@keyframes lightweight-pane{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+.selection-outline{filter:none;opacity:.32;animation:selection-breathe 2600ms ease-in-out infinite}
+.selection-outline img{display:block;width:100%;height:100%;object-fit:contain}
+@keyframes selection-breathe{0%,100%{opacity:.22}50%{opacity:.42}}
+.floating{will-change:auto}.bloom{contain:layout style}
+.reduced .selection-outline,.paused .selection-outline{animation:none}
+@media(prefers-reduced-motion:reduce){.selection-outline,#detail.bloom-dialog{animation:none}}
+
+.projection-mode .edge,.projection-mode #notice,.projection-mode #detailLink{display:none!important}
+.projection-mode .flower{pointer-events:auto}
+
+.creator-mode #garden,.creator-mode .edge{display:none!important}
+.creator-mode{background:radial-gradient(ellipse at 20% 20%,#f5f9f0,#fefefe 65%)}
+.creator-mode #entry{width:min(760px,94vw);max-height:94dvh}
+#projectionDone{padding:44px;text-align:center;width:min(480px,90vw)}
+#projectionDone button{margin-top:20px}
+.projection-mode .flower:disabled{opacity:1;cursor:default}
+
+/* Grow the pane from the actual clicked flower, not its final screen position. */
+#detail.bloom-dialog{transform-origin:var(--bloom-x) var(--bloom-y)!important;animation:pane-from-flower 650ms cubic-bezier(.18,.72,.2,1) both}
+#detail.bloom-dialog #profile{animation:pane-content-arrive 360ms 220ms ease-out both}
+@keyframes pane-from-flower{0%{opacity:0;transform:scale(.035,.045)}12%{opacity:.65;transform:scale(.09,.12)}52%{opacity:1;transform:scale(.7,.78)}100%{opacity:1;transform:scale(1)}}
+@keyframes pane-content-arrive{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.reduced #detail.bloom-dialog,.reduced #detail.bloom-dialog #profile{animation:none}
+@media(prefers-reduced-motion:reduce){#detail.bloom-dialog,#detail.bloom-dialog #profile{animation:none}}
+
+/* One uninterrupted expansion: luminous round seed gradually becomes glass. */
+#detail.bloom-dialog{animation:mist-to-glass 950ms cubic-bezier(.22,.55,.25,1) both}
+#detail.bloom-dialog::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:3;border-radius:inherit;background:radial-gradient(ellipse,#fffffff5 0%,#ffffffbd 30%,#eef3ff85 56%,transparent 76%);animation:mist-dissolve 950ms linear both}
+#detail.bloom-dialog #profile{animation:mist-content 950ms ease-out both}
+#detail.bloom-dialog>.close{animation:mist-content 950ms ease-out both}
+@keyframes mist-to-glass{from{opacity:.8;transform:scale(.035);border-radius:50%;border-color:transparent;box-shadow:0 0 65px 35px #ffffffc9;background-color:#fff}to{opacity:1;transform:scale(1);border-radius:22px;border-color:#ffffffe3;box-shadow:inset 0 1px 1px #fff,0 14px 46px #52634b17,0 1px 3px #ffffff70;background-color:transparent}}
+@keyframes mist-dissolve{from{opacity:1}to{opacity:0}}
+@keyframes mist-content{0%{opacity:0}35%{opacity:0}100%{opacity:1}}
+.reduced #detail.bloom-dialog,.reduced #detail.bloom-dialog #profile,.reduced #detail.bloom-dialog>.close{animation:none}.reduced #detail.bloom-dialog::before{display:none}
+@media(prefers-reduced-motion:reduce){#detail.bloom-dialog,#detail.bloom-dialog #profile,#detail.bloom-dialog>.close{animation:none}#detail.bloom-dialog::before{display:none}}
+
+/* The opening object is light first; the glass surface forms only as it expands. */
+#detail.bloom-dialog{background-image:none;animation:light-becomes-window 950ms cubic-bezier(.22,.55,.25,1) both}
+#detail.bloom-dialog::before{background:radial-gradient(ellipse,white 0%,#ffffffd9 18%,#eff4ff80 38%,#f5f0ff35 53%,transparent 70%);animation:light-becomes-clear 950ms linear both}
+#detail.bloom-dialog #profile,#detail.bloom-dialog>.close{animation:window-content-emerges 950ms linear both}
+@keyframes light-becomes-window{0%{opacity:.9;transform:scale(.035);border-radius:50%;background-color:transparent;border-color:transparent;box-shadow:0 0 40px 18px #ffffff60;backdrop-filter:none;-webkit-backdrop-filter:none}40%{border-radius:45%;background-color:transparent;border-color:transparent;box-shadow:0 0 35px 8px #ffffff35;backdrop-filter:none;-webkit-backdrop-filter:none}100%{opacity:1;transform:scale(1);border-radius:22px;background-color:#ffffffa6;border-color:#ffffffe3;box-shadow:inset 0 1px 1px #fff,0 14px 46px #52634b17,0 1px 3px #ffffff70;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}}
+@keyframes light-becomes-clear{0%{opacity:1}35%{opacity:1}100%{opacity:0}}
+@keyframes window-content-emerges{0%,48%{opacity:0}100%{opacity:1}}
+.reduced #detail.bloom-dialog,.reduced #detail.bloom-dialog #profile,.reduced #detail.bloom-dialog>.close{animation:none;background-color:#ffffffa6}
+@media(prefers-reduced-motion:reduce){#detail.bloom-dialog,#detail.bloom-dialog #profile,#detail.bloom-dialog>.close{animation:none}#detail.bloom-dialog{background-color:#ffffffa6}}
+
+/* Small white lights drift from the flower and merge into the glass surface. */
+.panel-orbs{position:fixed;width:0;height:0;z-index:36;pointer-events:none}
+.panel-orbs i{position:absolute;display:block;border-radius:50%;background:#fff;box-shadow:0 0 8px 3px var(--orb-color),0 0 22px 7px color-mix(in srgb,var(--orb-color) 48%,transparent);animation:orb-to-pane 1800ms cubic-bezier(.25,.55,.25,1) both;will-change:transform,opacity}
+@keyframes orb-to-pane{0%{opacity:0;transform:translate(-50%,-50%) scale(.45)}15%{opacity:1;transform:translate(calc(-50% + var(--ox)),calc(-50% + var(--oy))) scale(1)}48%{opacity:1;transform:translate(calc(-50% + var(--mx)),calc(-50% + var(--my))) scale(1.3)}82%,100%{opacity:0;transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) scale(3.2)}}
+#detail.bloom-dialog{animation:orb-glass-emerge 1800ms cubic-bezier(.22,.55,.25,1) both}
+#detail.bloom-dialog::before{display:none}
+#detail.bloom-dialog #profile,#detail.bloom-dialog>.close{animation:orb-content-emerge 1800ms linear both}
+@keyframes orb-glass-emerge{0%{opacity:0;transform:scale(.025);border-radius:50%;background-color:transparent;border-color:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}28%{opacity:0}48%{opacity:.35;border-radius:45%;background-color:#ffffff15;border-color:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}100%{opacity:1;transform:scale(1);border-radius:22px;background-color:#ffffffa6;border-color:#ffffffe3;box-shadow:inset 0 1px 1px #fff,0 14px 46px #52634b17;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}}
+@keyframes orb-content-emerge{0%,62%{opacity:0}100%{opacity:1}}
+.reduced #detail.bloom-dialog,.reduced #detail.bloom-dialog #profile,.reduced #detail.bloom-dialog>.close{animation:none}
+@media(prefers-reduced-motion:reduce){.panel-orbs{display:none}#detail.bloom-dialog,#detail.bloom-dialog #profile,#detail.bloom-dialog>.close{animation:none}}
+
+#reviewStep .review-row{display:grid;grid-template-columns:clamp(68px,17vw,116px) minmax(0,1fr);gap:20px;margin:22px 0 30px}
+.review-poster{aspect-ratio:2/3;background:#f3f3f0;border-radius:6px;overflow:hidden;align-self:start;display:grid;place-items:center;color:#888;font-size:11px}
+.review-poster img{width:100%;height:100%;object-fit:cover}.review-writing label{margin:0;font-size:18px}.review-writing label small{margin-left:5px}.review-writing textarea{height:clamp(100px,15vh,152px);font-size:16px;margin-top:7px}
+#reviewStep .extra-question{background:#eaf2dc;border-radius:12px;padding:13px 16px;margin:8px 0}.extra-question summary{cursor:pointer}.extra-question b{font-size:13px;white-space:nowrap}.extra-question textarea{font-size:16px}
+#reviewStep .submit-row #submit{width:100%;background:#dcebc2;color:#34412b;padding:14px}
+#seedLoading{padding:30px 44px;text-align:center}#seedLoading p{font-size:19px;color:#48573c}
+
+.panel-orbs i{animation:none;box-shadow:0 0 6px 1px var(--orb-color),0 0 13px 3px color-mix(in srgb,var(--orb-color) 42%,transparent)}
+#detail.bloom-dialog,#detail.bloom-dialog #profile,#detail.bloom-dialog>.close{animation-duration:2400ms}
+
+/* The pane follows the same center trajectory as the merging orbs. */
+#detail.bloom-dialog{animation:none!important;transform-origin:center!important;background-color:#ffffffa6;border-radius:22px}
+
+#detail>.close{display:none!important}
+.projection-mode:has(#detail[open]) .bloom:not(.selected) .floating{animation-play-state:running!important}
+.projection-mode .bloom.selected .floating{animation-play-state:paused!important}
+.projection-mode.reduced .floating,.projection-mode.paused .floating{animation-play-state:paused!important}
+
+#detail .taste-summary{white-space:pre-line;font-size:12px;line-height:1.8}
+
+#detail .taste-summary{white-space:normal;font-size:13px;line-height:1.75;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden}
+.early-question{background:#e8f2d8;border-radius:12px;padding:13px;margin-top:7px}.early-question summary{cursor:pointer}.early-question b{font-size:12px;white-space:nowrap}
+.seed-scene{width:145px;display:block;margin:auto}.seed-scene g{display:none}#seedLoading[data-stage="0"] .seed,#seedLoading[data-stage="1"] .spade,#seedLoading[data-stage="2"] .water{display:block}
+.seed{animation:drop-seed 1.1s ease-in infinite}.spade{transform-origin:84px 57px;animation:dig 1.1s ease infinite}.drops{animation:drop-seed .8s linear infinite}@keyframes drop-seed{from{transform:translateY(-12px);opacity:.4}to{transform:translateY(23px);opacity:1}}@keyframes dig{50%{transform:rotate(-22deg) translateY(6px)}}
+#flowerPreview{width:min(460px,94vw);padding:24px 30px;overflow:auto;text-align:left}#flowerPreview #previewFlower{width:min(220px,62vw);margin:auto}#receipt{border-block:1px dashed #bec4b8;padding-block:20px;margin-block:14px}#receipt h2{font-size:21px}#receipt .panel-axis-track i{background:var(--flower-accent)}#flowerPreview .preview-actions{display:grid}#plantTip{text-align:center;font-size:12px}
+@media(prefers-reduced-motion:reduce){.seed,.spade,.drops{animation:none}}
+
+.planting-orb{position:fixed;z-index:30;left:0;top:0;width:16px;height:16px;border-radius:50%;pointer-events:none;background:radial-gradient(circle at 38% 34%,white 12%,var(--orb-color) 67%,transparent);box-shadow:0 0 10px 4px color-mix(in srgb,var(--orb-color) 60%,transparent);will-change:transform,opacity}
+#plantTip{visibility:hidden}#plantFlower:is(:hover,:focus-visible)+#plantTip{visibility:visible}@media(hover:none){#plantTip{visibility:visible}}
+
+#flowerPreview>h2{font-size:15px;font-weight:500;letter-spacing:.01em}.receipt-demo #flowerPreview .preview-actions,.receipt-demo #flowerPreview .preview-private{display:none}
+
+#flowerPreview .receipt-head{padding:4px 30px 14px 0;border-bottom:1px dashed #bbc1b5;display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+#flowerPreview .receipt-head h2{font-size:15px;font-weight:600;margin:0}
+.receipt-head time{font-size:11px;letter-spacing:.045em;color:#666e60;font-variant-numeric:tabular-nums}#receipt .panel-source{display:none}
+
+@media print{
+ html,body{height:auto!important;overflow:visible!important;background:white!important}
+ body>:not(#flowerPreview){display:none!important}
+ dialog#flowerPreview{display:block!important;position:static!important;margin:0 auto;padding:0;border:none;box-shadow:none;width:100%;max-width:110mm;max-height:none;overflow:visible;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+ #flowerPreview .close,#flowerPreview .preview-actions,#flowerPreview .preview-private,#plantStatus{display:none!important}
+ #flowerPreview #previewFlower{width:38mm;margin:auto}
+ #receipt .panel-films,#receipt .panel-axis,#receipt .panel-color{break-inside:avoid}
+ dialog::backdrop{display:none!important}
+}
+
+/* Keep the selected color treatment through the vector-to-preview handoff. */
+.bloom .flower{transition:filter 180ms ease-out}
+.bloom.selected .flower{filter:saturate(1.28) contrast(1.08) brightness(.98)}
+.reduced .bloom .flower{transition:none}
+@media(prefers-reduced-motion:reduce){.bloom .flower{transition:none}}
+
+#flowerPreview #previewFlower{height:auto;aspect-ratio:1}
+#receipt{border-block:none}#receipt #taste-title{border-bottom:0}
+#receipt .panel-color p{white-space:pre-line}
+
+#detail .panel-color p{white-space:pre-line}
+
+#creatorGate{width:min(420px,90vw);padding:34px;text-align:center}
+#creatorGate h2{margin:0 0 12px}
+#creatorGate a:not([hidden]){display:inline-block;padding:12px 22px;border-radius:12px;background:#deebc4;color:#263422;text-decoration:none;margin-top:8px}
+
+/* A search-first canvas: posters appear only after selection. */
+#entry.choosing-movies #entry-title{display:none}
+#entry.choosing-movies{min-height:190px;padding-top:56px}
+#entry .movie-search{margin-bottom:0;min-height:58px;border-radius:16px}
+#entry .movie-search input{font-size:16px;padding:17px 0}
+#entry .movie-slots{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:24px}
+#entry .poster-slot{aspect-ratio:2/3;border-radius:10px;background:#f0f2ed}
+#entry .movie-slot{animation:poster-added 260ms ease-out both}
+#entry .movie-slot p{display:none}
+#entry .movie-slot h2{font-size:13px;margin-top:10px;font-weight:500}
+#entry .remove-movie{min-width:32px;min-height:32px}
+@keyframes poster-added{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+#entry .review-intro{margin:0 0 28px}
+#entry .review-intro p{font-size:18px!important;color:#414d3b;margin-bottom:8px}
+#entry .review-intro span{font-size:14px;line-height:1.85;color:#788071;display:block}
+#entry .review-writing textarea{min-height:150px;line-height:1.9;padding:15px;font-size:16px!important;resize:vertical}
+#entry .review-example{font-size:12px!important;line-height:1.8;color:#8d9286;margin:10px 0 8px}
+.review-example b{display:block;font-weight:500;color:#737d68;margin-bottom:3px}
+.review-count{display:block;font-size:12px;color:#9a8172}.review-count.ready{color:#718a55}
+#seedLoading{width:min(440px,calc(100vw - 40px));padding:24px 32px 42px;border:1px solid #ffffffc9;background:#fafbf8f5;border-radius:28px;overflow:hidden;box-shadow:0 20px 80px #6a75701c}
+#seedLoading::backdrop{background:#f5f7f2ab;backdrop-filter:blur(8px)}
+.loading-flower{width:240px;max-width:65vw;aspect-ratio:1;margin:0 auto 4px;animation:flower-breathe 3200ms ease-in-out infinite}
+.loading-flower img{display:block;width:100%;height:100%;object-fit:contain}
+.loading-eyebrow{font-size:10px;letter-spacing:.24em;color:#9ba58e}
+#seedLoading p{font-size:19px;font-weight:500;letter-spacing:-.035em;color:#4b5842;margin:13px 0 12px}
+.loading-note{font-size:13px;line-height:1.9;color:#8b9381}
+@keyframes flower-breathe{0%,100%{transform:scale(.92) rotate(-4deg);opacity:.72}50%{transform:scale(1) rotate(4deg);opacity:1}}
+@media(prefers-reduced-motion:reduce){.loading-flower,#entry .movie-slot{animation:none}}
+
+.growth-scene{display:block;width:280px;max-width:70vw;height:240px;margin:0 auto 4px;overflow:visible}
+.growth-seed{transform-origin:140px 174px;animation:seed-settle 7200ms ease-in-out infinite}
+.growth-water{animation:water-arrive 7200ms ease-in-out infinite}
+.growth-drop{animation:water-fall 7200ms cubic-bezier(.4,0,.3,1) infinite}
+.growth-ripple{transform-origin:140px 176px;animation:water-ripple 7200ms ease-out infinite}
+.growth-sprout{transform-origin:140px 174px;animation:sprout-emerge 7200ms cubic-bezier(.3,.1,.2,1) infinite}
+@keyframes seed-settle{0%{opacity:0;transform:translateY(-13px) rotate(-8deg)}12%,38%{opacity:1;transform:translateY(0) rotate(0)}58%,91%{opacity:.25;transform:scale(.65)}100%{opacity:0;transform:scale(.65)}}
+@keyframes water-arrive{0%,21%{opacity:0}28%,47%{opacity:1}55%,100%{opacity:0}}
+@keyframes water-fall{0%,25%{transform:translateY(-15px)}46%,100%{transform:translateY(83px) scale(.7)}}
+@keyframes water-ripple{0%,40%{opacity:0;transform:scale(.4)}46%{opacity:.65}58%,100%{opacity:0;transform:scale(1.8)}}
+@keyframes sprout-emerge{0%,45%{opacity:0;transform:scale(.12,.04)}62%{opacity:1;transform:scale(.65,.7)}78%,91%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.growth-scene *{animation:none!important}.growth-water{display:none}.growth-seed{opacity:.3}}
+
+/* Full-page review writing, following the supplied iPad layout. */
+#entry.writing-reviews{position:fixed;inset:0;margin:0;width:100vw;max-width:none;height:100dvh;max-height:none;padding:88px 32px 36px;border:0;border-radius:0;background:#fff;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;overflow-y:auto}
+#entry.writing-reviews #reviewForm{max-width:1280px;margin:auto}
+#entry.writing-reviews>.close{display:none}
+#entry.writing-reviews #entry-title{text-align:center;font-size:27px;font-weight:650;line-height:1.45;color:#171a16;margin:0;padding:0;letter-spacing:-.045em}
+#entry.writing-reviews #movieBack{position:absolute;top:25px;left:28px;margin:0;padding:6px;font-size:28px;color:#20251e;line-height:1;border:0;background:transparent}
+#entry.writing-reviews .review-intro{text-align:center;margin:10px 0 120px}
+#entry.writing-reviews .review-intro p{font-size:16px!important;line-height:1.65;color:#989b95;margin:0}
+#entry.writing-reviews .review-row{display:grid;grid-template-columns:minmax(160px,25%) minmax(0,1fr);gap:34px;margin:0 0 105px;align-items:stretch}
+#entry.writing-reviews .review-poster{width:100%;aspect-ratio:2/3;border-radius:14px;border:1px solid #e3e5e0;background:#fafbf8;align-self:start}
+#entry.writing-reviews .review-writing{min-width:0;display:flex;flex-direction:column;position:relative}
+#entry.writing-reviews .review-writing label{font-size:21px;margin:0 0 14px;color:#191c18;line-height:1.4}
+#entry.writing-reviews .review-writing label small{font-size:18px;color:#353a31;font-weight:400;margin-left:9px}
+.review-field{position:relative;flex:1;min-height:260px}
+#entry.writing-reviews .review-field textarea{display:block;box-sizing:border-box;width:100%;height:100%;min-height:260px;resize:vertical;margin:0;border:1px solid #ced2c9;border-radius:16px;background:#fff;padding:28px;font-size:18px!important;line-height:1.8;color:#3f4839;outline-color:#b7cc93}
+#entry.writing-reviews .review-field .review-example{position:absolute;inset:0;margin:0;padding:42px 28px;pointer-events:none;font-size:17px!important;line-height:1.8;color:#969a91;overflow:hidden;display:none}
+#entry.writing-reviews .review-field:has(textarea:placeholder-shown) .review-example{display:block}
+.review-minimum{display:block;margin-bottom:30px}
+#entry.writing-reviews .review-example b{font-weight:600;font-size:17px;color:#8a9083;margin-bottom:0}
+#entry.writing-reviews .review-count{font-size:11px;line-height:1.6;text-align:right;margin-top:7px;color:#999e93}
+#entry.writing-reviews .review-count.ready{color:#84966a}
+#entry.writing-reviews .early-question{margin:14px 0 0;background:#dfebc5;padding:0;border-radius:14px}
+#entry.writing-reviews .early-question summary{display:flex;align-items:center;gap:12px;list-style:none;padding:20px 24px;font-size:18px;font-weight:550;color:#242e1c;min-height:68px}
+.early-question summary::-webkit-details-marker{display:none}.question-symbol{font-size:25px;line-height:1}.question-toggle{margin-left:auto;font-size:20px}.early-question[open] .question-toggle{transform:rotate(45deg)}
+#entry.writing-reviews .early-question>p{font-size:15px;line-height:1.7;color:#60704e;padding:0 24px;margin:0 0 12px}
+#entry.writing-reviews .early-question textarea{width:calc(100% - 48px);margin:0 24px 20px;background:#ffffffad;border-color:#c3d2ad;font-size:16px;min-height:100px}
+#entry.writing-reviews .privacy{font-size:11px!important;line-height:1.7;color:#a2a69b;border:0;margin-top:-40px}
+#entry.writing-reviews .submit-row #submit{font-size:25px;font-weight:500;border:0;border-radius:22px;min-height:90px;padding:22px;background:#dfebc5;color:#202b18;margin-top:14px}
+@media(max-width:800px){#entry.writing-reviews{padding:82px 24px 30px}#entry.writing-reviews #entry-title{font-size:24px}#entry.writing-reviews .review-intro{margin-bottom:78px}#entry.writing-reviews .review-intro p{font-size:14px!important}#entry.writing-reviews .review-row{grid-template-columns:24% minmax(0,1fr);gap:22px;margin-bottom:70px}#entry.writing-reviews .review-writing label{font-size:18px}#entry.writing-reviews .review-field .review-example{font-size:15px!important;padding:28px 22px}#entry.writing-reviews .review-field textarea{padding:22px;font-size:16px!important}.review-minimum{margin-bottom:18px}}
+@media(max-width:520px){#entry.writing-reviews{padding:76px 18px 24px}#entry.writing-reviews #entry-title{font-size:21px}#entry.writing-reviews .review-intro{margin-bottom:48px}#entry.writing-reviews .review-row{grid-template-columns:1fr;gap:16px}#entry.writing-reviews .review-poster{width:90px;grid-row:1}#entry.writing-reviews .review-writing{grid-row:2}.review-field{min-height:280px}#entry.writing-reviews .review-field textarea{min-height:280px}#entry.writing-reviews .review-writing label small{font-size:15px}#entry.writing-reviews .submit-row #submit{min-height:68px;font-size:21px}}
+#entry.writing-reviews #reviewStep .review-writing label{font-size:21px}
+#entry.writing-reviews #reviewStep .review-field .review-example{font-size:17px!important}
+@media(max-width:800px){#entry.writing-reviews #reviewStep .review-writing label{font-size:18px}#entry.writing-reviews #reviewStep .review-field .review-example{font-size:15px!important}}
+
+#entry.writing-reviews #reviewStep .review-writing label small{font-size:1em!important}
+/* Follow-up invitation: a quiet pale-green strip. */
+#entry.writing-reviews .early-question{background:#f6f9ef;border-radius:14px}
+#entry.writing-reviews .early-question summary{min-height:78px;padding:22px 28px;gap:10px;font-size:18px;font-weight:500;color:#657f3e}
+#entry.writing-reviews .early-question .question-symbol{font-size:27px;color:#657f3e}
+#entry.writing-reviews .early-question .question-toggle{display:none}
+#entry.writing-reviews .early-question>p{color:#65764e}
+#entry.writing-reviews .early-question textarea{background:#fff;border-color:#dbe4cf}
+#entry.choosing-movies .movie-search{border:1px solid #b8ce94}
+#entry.choosing-movies .movie-search:focus-within{border-color:#94b367;outline:1px solid #94b367}
+
+#entry .movie-slots .poster-slot img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+
+/* Review writing stays inside the same floating glass surface as movie selection. */
+#entry.writing-reviews{inset:0;margin:auto;width:min(1160px,92vw);max-width:92vw;height:90dvh;max-height:90dvh;padding:72px 36px 32px;border:1px solid #ffffffdf;border-radius:28px;background:linear-gradient(145deg,#ffffffc9,#ffffff80 55%,#ffffffb3);backdrop-filter:blur(24px) saturate(1.08);-webkit-backdrop-filter:blur(24px) saturate(1.08);box-shadow:inset 0 1px 1px #fff,0 24px 85px #4248501a,0 2px 10px #ffffff80;scrollbar-width:thin}
+#entry.writing-reviews::backdrop{background:#f2f4f326;backdrop-filter:blur(7px)}
+#entry.writing-reviews .review-intro{margin-bottom:76px}
+#entry.writing-reviews .review-poster{border-color:#ffffffc9;background:#ffffff40}
+#entry.writing-reviews .review-field textarea{background:#ffffff70;border-color:#cbd2c480;box-shadow:inset 0 1px 1px #fff9}
+#entry.writing-reviews #reviewStep .submit-row #submit:disabled{background:#e3e9d9;color:#a0aa94;cursor:not-allowed;opacity:.62}
+#entry.writing-reviews #reviewStep .submit-row #submit:not(:disabled){background:#dfebc5;color:#202b18;opacity:1}
+@media(max-width:800px){#entry.writing-reviews{width:94vw;max-width:94vw;height:92dvh;max-height:92dvh;padding:70px 24px 28px;border-radius:24px}#entry.writing-reviews .review-intro{margin-bottom:54px}}
+@media(max-width:520px){#entry.writing-reviews{width:94vw;max-width:94vw;padding:68px 18px 24px;border-radius:22px}#entry.writing-reviews #movieBack{left:16px;top:18px}}
+/* Movie selection and review writing share the same panel sizing rules. */
+#entry,#flowerPreview{--entry-width:650px;--entry-max-width:calc(100vw - 32px);--entry-max-height:90dvh}
+@media(max-width:600px){#entry,#flowerPreview{--entry-width:calc(100vw - 28px)}}
+.creator-mode #entry,.creator-mode #flowerPreview{--entry-width:min(760px,94vw);--entry-max-height:94dvh}
+#entry,#entry.writing-reviews{width:var(--entry-width);max-width:var(--entry-max-width);height:auto;max-height:var(--entry-max-height)}
+#entry.writing-reviews{padding:64px 42px 28px;border-radius:26px}
+#entry.writing-reviews #entry-title{font-size:23px}
+#entry.writing-reviews .review-intro{margin-bottom:48px}
+#entry.writing-reviews .review-intro p{font-size:13px!important}
+#entry.writing-reviews .review-row{grid-template-columns:24% minmax(0,1fr);gap:22px;margin-bottom:56px}
+#entry.writing-reviews .review-field{min-height:300px}
+#entry.writing-reviews .review-field textarea{min-height:300px;padding:20px}
+#entry.writing-reviews .review-field .review-example{padding:30px 20px}
+#entry.writing-reviews #reviewStep .review-field .review-example{font-size:15px!important}
+#entry.writing-reviews .review-example b{font-size:15px}
+@media(max-width:600px){#entry.writing-reviews{padding:60px 22px 22px;border-radius:22px}#entry.writing-reviews #entry-title{font-size:21px}#entry.writing-reviews .review-row{grid-template-columns:1fr;gap:16px}#entry.writing-reviews .review-poster{width:90px}}
+/* The first step wraps its contents instead of stretching between dialog insets. */
+#entry.choosing-movies{height:fit-content;min-height:0;inset:0;margin:auto;padding:40px 42px 32px}
+#entry.choosing-movies:has(#movieSlots[hidden]){padding-block:32px}
+#entry.choosing-movies .movie-results:not(:empty){position:relative;top:auto;left:auto;right:auto;margin-top:10px}
+@media(max-width:600px){#entry.choosing-movies{padding:32px 22px 24px}#entry.choosing-movies:has(#movieSlots[hidden]){padding-block:26px}}
+
+/* Compact review type; poster and writing column share the row's full height. */
+#entry.writing-reviews #reviewStep .review-writing label{font-size:16px;line-height:1.5;margin-bottom:10px}
+#entry.writing-reviews #reviewStep .review-writing label small{font-size:1em!important}
+#entry.writing-reviews #reviewStep .review-field textarea{font-size:14px!important;line-height:1.8;padding:18px;min-height:250px}
+#entry.writing-reviews #reviewStep .review-field .review-example{font-size:14px!important;line-height:1.8;padding:26px 18px}
+#entry.writing-reviews .review-example b{font-size:14px}
+#entry.writing-reviews .review-minimum{margin-bottom:20px}
+#entry.writing-reviews .review-row{align-items:stretch}
+#entry.writing-reviews .review-poster{position:relative;align-self:stretch;aspect-ratio:auto;min-height:0;width:100%;height:auto;overflow:hidden}
+#entry.writing-reviews .review-poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+#entry.writing-reviews .review-writing{min-height:310px}
+#entry.writing-reviews .review-field{min-height:250px}
+@media(max-width:600px){#entry.writing-reviews .review-poster{width:90px;aspect-ratio:2/3;align-self:start}#entry.writing-reviews .review-writing{min-height:310px}}
+
+/* The poster ratio defines the base row height, never the other way around. */
+#entry.writing-reviews .review-row{container-type:inline-size}
+#entry.writing-reviews .review-poster{aspect-ratio:2/3;align-self:start;height:auto;min-height:0}
+#entry.writing-reviews .review-writing{display:block;min-height:0}
+#entry.writing-reviews .review-main{display:flex;flex-direction:column;height:36cqw;min-height:0}
+#entry.writing-reviews .review-field{flex:1;min-height:0}
+#entry.writing-reviews #reviewStep .review-field textarea{position:absolute;inset:0;height:100%;min-height:0;resize:none}
+#entry.writing-reviews #reviewStep .review-field .review-example{padding:16px 18px;line-height:1.65}
+#entry.writing-reviews .review-minimum{margin-bottom:12px}
+#entry.writing-reviews .review-count{flex-shrink:0}
+@media(max-width:600px){#entry.writing-reviews .review-main{height:290px}#entry.writing-reviews .review-poster{width:90px;aspect-ratio:2/3}}
+#entry.writing-reviews .early-question summary{font-size:14px;min-height:52px;padding:14px 18px;gap:8px}
+#entry.writing-reviews .early-question .question-symbol{font-size:18px}
+#entry.writing-reviews .early-question>p{font-size:14px;padding-inline:18px}
+#entry.writing-reviews .early-question textarea{font-size:14px!important;width:calc(100% - 36px);margin-inline:18px}
+
+#entry.writing-reviews .early-question .question-symbol{flex-shrink:0}
+#entry.writing-reviews .early-question .question-text{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#entry.writing-reviews .early-question[open] .question-text{white-space:normal;overflow:visible}
+
+#entry.writing-reviews .early-question .question-text{flex:1}
+.question-chevron{flex-shrink:0;transition:transform 180ms ease}
+.early-question[open] .question-chevron{transform:rotate(180deg)}
+@media(prefers-reduced-motion:reduce){.question-chevron{transition:none}}
+
+#entry.writing-reviews #reviewStep .submit-row #submit{min-height:50px;font-size:16px;padding:12px 18px;border-radius:14px;margin-top:10px}
+
+/* One action-button size in both iPad entry steps. */
+#entry #movieNext,#entry.writing-reviews #reviewStep .submit-row #submit{box-sizing:border-box;width:100%;min-height:0;padding:12px 0;border:1px solid #dceac1;border-radius:15px;font-size:18px;line-height:normal;font-weight:400;margin-top:20px;background:#deebc4;color:#253023}
+#entry #movieNext:disabled,#entry.writing-reviews #reviewStep .submit-row #submit:disabled{background:#e3e9d9;color:#a0aa94;opacity:.62;cursor:not-allowed}
+@media(max-width:600px){#entry #movieNext,#entry.writing-reviews #reviewStep .submit-row #submit{font-size:16px}}
+
+/* Keep the count beside the movie title and year, outside the writing field. */
+#entry.writing-reviews .review-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px;flex-shrink:0;min-width:0}
+#entry.writing-reviews #reviewStep .review-heading label{margin:0;min-width:0;overflow-wrap:anywhere}
+#entry.writing-reviews #reviewStep .review-heading .review-count{margin:0;white-space:nowrap;line-height:1.5;flex-shrink:0}
+
+/* GAMDO ticket: generous portrait composition for both the receipt and print. */
+#flowerPreview{box-sizing:border-box;width:min(760px,calc(100vw - 32px));max-width:none;max-height:92dvh;padding:38px 42px 30px;border-radius:16px;background:#fff;color:#101210;text-align:left;overflow-y:auto}
+#flowerPreview .ticket-sheet{width:100%;background:#fff}
+#flowerPreview .receipt-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:0;border:0}
+#flowerPreview .receipt-head h2,#flowerPreview .receipt-head time{font-size:14px;font-weight:650;line-height:1.4;letter-spacing:-.02em;color:#111;margin:0;white-space:nowrap}
+#flowerPreview #previewFlower{width:min(450px,78%);height:auto;aspect-ratio:1;margin:70px auto 54px;overflow:visible}
+#flowerPreview #previewFlower svg{width:100%;height:100%;display:block;overflow:visible}
+#flowerPreview #receipt{margin:0 36px;padding:0;border:0}
+#flowerPreview #receipt .ticket-title{font-size:clamp(30px,4.6vw,44px);font-weight:750;line-height:1.3;letter-spacing:-.065em;margin:0 0 52px;overflow-wrap:anywhere;word-break:keep-all}
+#receipt .ticket-films{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:0 0 54px;padding:0 14px}
+#receipt .ticket-films h3,#receipt .ticket-films p{font-size:17px;font-weight:450;line-height:1.45;letter-spacing:-.04em;overflow-wrap:anywhere;word-break:keep-all;margin:0}
+#receipt .ticket-films p{margin-top:8px;font-variant-numeric:tabular-nums}
+#receipt .ticket-description{font-size:18px;line-height:1.75;letter-spacing:-.035em;word-break:keep-all;overflow-wrap:anywhere;margin:0 0 48px;white-space:normal}
+#receipt .ticket-section-heading{display:flex;align-items:center;gap:14px;margin-bottom:28px;font-size:14px;line-height:1.4;letter-spacing:-.035em}
+#receipt .ticket-section-heading span{white-space:nowrap}
+#receipt .ticket-section-heading i{height:1px;flex:1;background:#7a7b78}
+#receipt .ticket-axes{display:grid;gap:25px}
+#receipt .ticket-axis{display:grid;grid-template-columns:42px minmax(0,1fr) 82px;align-items:center;gap:14px;min-height:26px;break-inside:avoid}
+#receipt .ticket-axis b,#receipt .ticket-axis strong{font-size:17px;line-height:1.45;font-weight:600;letter-spacing:-.035em}
+#receipt .ticket-axis strong{text-align:right;font-weight:500}
+#receipt .ticket-axis-track{height:17px;border-radius:999px;background:#e4e4e2;overflow:hidden}
+#receipt .ticket-axis-track span{height:100%;display:block;border-radius:inherit;background:var(--flower-accent,#bcc7b0);opacity:.62}
+#receipt .ticket-axis.is-unknown strong{font-size:14px;color:#858a80;font-weight:400}
+#receipt .ticket-axis.is-unknown .ticket-axis-track{background:#f0f0ed}
+#receipt .ticket-color{margin-top:54px}
+#receipt .ticket-color .ticket-section-heading{margin-bottom:26px}
+#receipt .ticket-color-names{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:14px;font-size:18px;line-height:1.4;font-weight:400;letter-spacing:-.04em}
+#flowerPreview .preview-private{margin:42px 36px 0;font-size:12px}
+#flowerPreview .preview-actions{margin:20px 36px 0}
+@media(max-width:600px){
+ #flowerPreview{padding:30px 22px 24px}
+ #flowerPreview .receipt-head h2,#flowerPreview .receipt-head time{font-size:12px}
+ #flowerPreview #previewFlower{width:82%;margin:46px auto 36px}
+ #flowerPreview #receipt{margin:0 10px}
+ #flowerPreview #receipt .ticket-title{font-size:30px;margin-bottom:34px}
+ #receipt .ticket-films{gap:14px;padding:0;margin-bottom:36px}
+ #receipt .ticket-films h3,#receipt .ticket-films p{font-size:13px}
+ #receipt .ticket-description{font-size:15px;margin-bottom:36px}
+ #receipt .ticket-section-heading{font-size:12px;margin-bottom:20px}
+ #receipt .ticket-axis{grid-template-columns:32px minmax(0,1fr) 66px;gap:10px}
+ #receipt .ticket-axis b,#receipt .ticket-axis strong{font-size:14px}
+ #receipt .ticket-axis.is-unknown strong{font-size:12px}
+ #receipt .ticket-axis-track{height:13px}
+ #receipt .ticket-axes{gap:18px}
+ #receipt .ticket-color{margin-top:38px}
+ #receipt .ticket-color-names{font-size:15px;gap:10px}
+ #flowerPreview .preview-private,#flowerPreview .preview-actions{margin-left:10px;margin-right:10px}
+}
+@media print{
+ dialog#flowerPreview{width:100%!important;max-width:110mm!important;padding:0!important;max-height:none!important;border:0!important;border-radius:0!important;overflow:visible!important;background:#fff!important;backdrop-filter:none!important}
+ #flowerPreview .receipt-head h2,#flowerPreview .receipt-head time{font-size:8pt}
+ #flowerPreview #previewFlower{width:66mm;margin:10mm auto 8mm}
+ #flowerPreview #receipt{margin:0 6mm;padding:0}
+ #flowerPreview #receipt .ticket-title{font-size:20pt;line-height:1.25;margin:0 0 8mm}
+ #receipt .ticket-films{gap:4mm;margin:0 0 8mm;padding:0}
+ #receipt .ticket-films h3,#receipt .ticket-films p{font-size:8.5pt;line-height:1.35}
+ #receipt .ticket-films p{margin-top:2mm}
+ #receipt .ticket-description{font-size:9pt;line-height:1.6;margin:0 0 8mm}
+ #receipt .ticket-section-heading{font-size:8pt;gap:3mm;margin-bottom:5mm}
+ #receipt .ticket-axes{gap:3mm}
+ #receipt .ticket-axis{grid-template-columns:9mm minmax(0,1fr) 17mm;gap:3mm;min-height:6mm}
+ #receipt .ticket-axis b,#receipt .ticket-axis strong{font-size:8.5pt}
+ #receipt .ticket-axis.is-unknown strong{font-size:7pt}
+ #receipt .ticket-axis-track{height:2.8mm}
+ #receipt .ticket-color{margin-top:8mm}
+ #receipt .ticket-color .ticket-section-heading{margin-bottom:5mm}
+ #receipt .ticket-color-names{font-size:9pt;gap:3mm}
+}
+
+/* Read-only receipt preview uses the real ticket renderer and sample record. */
+html:has(body.receipt-demo),body.receipt-demo{height:auto;overflow:auto}
+body.receipt-demo{padding:24px 0;background:#f5f5f2}
+body.receipt-demo>#garden,body.receipt-demo>.edge{display:none}
+body.receipt-demo #flowerPreview{position:relative;inset:auto;transform:none;max-height:none;overflow:visible;margin:0 auto;box-shadow:none;border-radius:0}
+body.receipt-demo #flowerPreview>.close{display:none}
+body.receipt-demo #flowerPreview:focus{outline:none}
+@media print{body.receipt-demo{padding:0!important}#receipt .ticket-color,#receipt .ticket-films{break-inside:avoid}}
+
+/* The same fixed bitmap is shown, downloaded and printed. */
+#receiptImage{display:block;width:100%;height:auto;max-width:100%;background:white}
+#receiptImage[hidden]{display:none}
+#flowerPreview.has-ticket-image .ticket-sheet{display:none}
+#receiptImageStatus{font-size:12px;color:#7d8276;text-align:center;margin:14px 0}
+.receipt-export{display:flex;gap:10px;justify-content:center;margin:18px 0}
+.receipt-export button{font-size:14px;padding:12px 18px}
+@media print{
+ @page{size:79mm 148.3mm;margin:0}
+ html,body{width:auto!important;height:auto!important;margin:0!important;padding:0!important}
+ dialog#flowerPreview{width:79mm!important;max-width:79mm!important;margin:0!important;padding:4mm 0 0!important;height:148.3mm!important;max-height:148.3mm!important;overflow:hidden!important;break-inside:avoid!important;break-after:avoid!important}
+ #flowerPreview>*{display:none!important}
+ #flowerPreview>#receiptImage{display:block!important;width:79mm!important;height:144.3mm!important;max-width:79mm!important;max-height:144.3mm!important;margin:0 auto!important;object-fit:contain;break-inside:avoid!important}
+}
+
+/* Receipt dialog shares the entry flow's width and breakpoint tokens. */
+@media screen{
+ #flowerPreview{width:var(--entry-width);max-width:var(--entry-max-width);height:auto;max-height:var(--entry-max-height);padding:64px 42px 28px;border-radius:26px}
+}
+@media screen and (max-width:600px){#flowerPreview{padding:60px 22px 22px;border-radius:22px}}
+
+/* Landscape: show the entire ticket, with actions beside it rather than below it. */
+@media screen and (orientation:landscape) and (min-width:601px){
+ #flowerPreview.has-ticket-image[open]{display:grid;grid-template-columns:minmax(0,1fr) 210px;grid-template-rows:1fr auto auto auto 1fr;column-gap:28px;row-gap:14px;padding:32px;overflow:hidden}
+ #flowerPreview.has-ticket-image>.close{position:absolute;right:12px;top:10px;margin:0}
+ #flowerPreview.has-ticket-image>#receiptImage{grid-column:1;grid-row:1/6;width:auto;height:calc(var(--entry-max-height) - 66px);max-height:calc(var(--entry-max-height) - 66px);max-width:100%;min-width:0;object-fit:contain;justify-self:center;align-self:center}
+ #flowerPreview.has-ticket-image>#receiptImageStatus{grid-column:2;grid-row:1;align-self:end;margin:0;text-align:center}
+ #flowerPreview.has-ticket-image>.receipt-export{grid-column:2;grid-row:2;margin:0;display:block}
+ #flowerPreview.has-ticket-image>.receipt-export button{width:100%;min-height:44px}
+ #flowerPreview.has-ticket-image>.preview-private{grid-column:2;grid-row:3;margin:0;text-align:center}
+ #flowerPreview.has-ticket-image>#plantStatus{grid-column:2;grid-row:4;margin:0;font-size:12px}
+ #flowerPreview.has-ticket-image>.preview-actions{grid-column:2;grid-row:5;align-self:start;display:flex;flex-direction:column;gap:10px;margin:0}
+ #flowerPreview.has-ticket-image>.preview-actions button{width:100%;min-height:44px;font-size:14px}
+ #flowerPreview.has-ticket-image #plantTip{display:none}
+}
+
+/* Reveal a fresh receipt from its top edge, like paper feeding from a printer. */
+@media screen and (prefers-reduced-motion:no-preference){
+ #receiptImage.receipt-printing{animation:receipt-paper-feed 1900ms cubic-bezier(.18,.35,.3,1) both}
+ @keyframes receipt-paper-feed{from{clip-path:inset(0 0 100% 0);transform:translateY(-8px)}to{clip-path:inset(0);transform:translateY(0)}}
+}
+@media print{#receiptImage{animation:none!important;clip-path:none!important;transform:none!important}}
+
+#flowerPreview #previewEdit[hidden]{display:none!important}
+#flowerPreview #plantTip{display:none;visibility:hidden}
+#flowerPreview.show-wall-tip #plantTip{display:block;visibility:visible;background:#f1f5e9;border:1px solid #dce8c7;border-radius:12px;padding:10px 12px;color:#40512d;font-size:13px;line-height:1.5;text-align:center}
+
+#receiptImageStatus:empty{display:none}
+#flowerPreview .preview-actions>.preview-private{margin:0!important;font-size:12px;text-align:center;line-height:1.5}
+@media screen and (orientation:landscape) and (min-width:601px){
+ #flowerPreview.has-ticket-image[open]{grid-template-rows:1fr auto auto 1fr}
+ #flowerPreview.has-ticket-image>#receiptImage{grid-row:1/5}
+ #flowerPreview.has-ticket-image>.preview-actions{grid-row:3}
+ #flowerPreview.has-ticket-image>#plantStatus{grid-row:4;align-self:start}
+}
+
+/* The receipt folds, dissolves into light, then leaves through the top edge. */
+#flowerPreview.is-transferring>.close,#flowerPreview.is-transferring>.receipt-export,#flowerPreview.is-transferring>.preview-actions{opacity:0;pointer-events:none;transition:opacity 180ms}
+.receipt-transfer{position:fixed;inset:0;z-index:20;pointer-events:none;overflow:hidden}
+.receipt-transfer i{position:absolute;display:block;border-radius:50%;background:radial-gradient(circle,#fff 0 20%,var(--light-color) 65%,transparent 100%);box-shadow:0 0 12px 3px var(--light-color);will-change:transform,opacity}
+.receipt-transfer p{position:absolute;left:20px;right:20px;top:65%;margin:0;text-align:center;color:#7d8276;font-size:13px;font-weight:400;letter-spacing:-.02em;opacity:0}
+@media print{.receipt-transfer{display:none!important}}
+
+.receipt-transfer[popover]{margin:0;padding:0;border:0;width:100vw;height:100dvh;max-width:none;max-height:none;background:transparent;color:inherit}
+
+/* Pink replaces the former sage UI accent; flower artwork keeps its own palette. */
+:root{--ui-pink:#e995b5;--ui-pink-soft:#f6dce6;--ui-pink-hover:#f0cbd9;--ui-pink-border:#edc4d4;--ui-pink-text:#75475a;--ui-pink-muted:#ad8796}
+button:focus-visible,a:focus-visible{outline-color:var(--ui-pink)}
+#entry .movie-search:focus-within,#entry.choosing-movies .movie-search:focus-within{border-color:var(--ui-pink);outline:1px solid var(--ui-pink)}
+#entry.writing-reviews .review-field textarea:focus{border-color:var(--ui-pink);outline-color:var(--ui-pink)}
+#entry #movieNext,#entry.writing-reviews #reviewStep .submit-row #submit,#creatorGate a:not([hidden]){background:var(--ui-pink-soft);border-color:var(--ui-pink-border);color:var(--ui-pink-text)}
+#entry #movieNext:not(:disabled):hover,#entry.writing-reviews #reviewStep .submit-row #submit:not(:disabled):hover,#creatorGate a:not([hidden]):hover{background:var(--ui-pink-hover)}
+#entry #movieNext:disabled,#entry.writing-reviews #reviewStep .submit-row #submit:disabled{background:#f4ebef;border-color:#eee1e7;color:var(--ui-pink-muted)}
+#entry.writing-reviews .early-question,#entry.writing-reviews .early-question summary,#reviewStep .extra-question,.early-question{background:#fbf0f4}
+#entry.writing-reviews .early-question summary,#entry.writing-reviews .early-question .question-symbol{color:var(--ui-pink-text)}
+#entry.writing-reviews .early-question>p{color:#936b7b}
+#entry.writing-reviews .early-question textarea{border-color:var(--ui-pink-border)}
+#entry.writing-reviews .review-count.ready{color:#c36d8e}
+#flowerPreview.show-wall-tip #plantTip{background:#fbf0f4;border-color:var(--ui-pink-border);color:var(--ui-pink-text)}
+#flowerPreview #plantFlower{background:#e783a8;border-color:#da7299;color:#603248}
+#flowerPreview #plantFlower:hover{background:#dd739a}
+#flowerPreview #plantFlower:disabled{opacity:1;cursor:default}
+#flowerPreview .preview-private{color:#b66f8d}
+.receipt-export::after{content:"";display:block;width:min(100%,420px);height:1px;margin:12px auto 0;background:#e6d5dc}
+
+/* Give each flower a continuous drift instead of easing to a stop at both ends. */
+.floating{animation-timing-function:linear}
+@keyframes garden-float{
+ 0%{transform:translate3d(0,var(--dy),0) rotate(0deg)}
+ 6.25%{transform:translate3d(calc(var(--dx)*.383),calc(var(--dy)*.924),0) rotate(calc(var(--rot)*.383))}
+ 12.5%{transform:translate3d(calc(var(--dx)*.707),calc(var(--dy)*.707),0) rotate(calc(var(--rot)*.707))}
+ 18.75%{transform:translate3d(calc(var(--dx)*.924),calc(var(--dy)*.383),0) rotate(calc(var(--rot)*.924))}
+ 25%{transform:translate3d(var(--dx),0,0) rotate(var(--rot))}
+ 31.25%{transform:translate3d(calc(var(--dx)*.924),calc(var(--dy)*-.383),0) rotate(calc(var(--rot)*.924))}
+ 37.5%{transform:translate3d(calc(var(--dx)*.707),calc(var(--dy)*-.707),0) rotate(calc(var(--rot)*.707))}
+ 43.75%{transform:translate3d(calc(var(--dx)*.383),calc(var(--dy)*-.924),0) rotate(calc(var(--rot)*.383))}
+ 50%{transform:translate3d(0,calc(-1*var(--dy)),0) rotate(0deg)}
+ 56.25%{transform:translate3d(calc(var(--dx)*-.383),calc(var(--dy)*-.924),0) rotate(calc(var(--rot)*-.383))}
+ 62.5%{transform:translate3d(calc(var(--dx)*-.707),calc(var(--dy)*-.707),0) rotate(calc(var(--rot)*-.707))}
+ 68.75%{transform:translate3d(calc(var(--dx)*-.924),calc(var(--dy)*-.383),0) rotate(calc(var(--rot)*-.924))}
+ 75%{transform:translate3d(calc(-1*var(--dx)),0,0) rotate(calc(-1*var(--rot)))}
+ 81.25%{transform:translate3d(calc(var(--dx)*-.924),calc(var(--dy)*.383),0) rotate(calc(var(--rot)*-.924))}
+ 87.5%{transform:translate3d(calc(var(--dx)*-.707),calc(var(--dy)*.707),0) rotate(calc(var(--rot)*-.707))}
+ 93.75%{transform:translate3d(calc(var(--dx)*-.383),calc(var(--dy)*.924),0) rotate(calc(var(--rot)*-.383))}
+ 100%{transform:translate3d(0,var(--dy),0) rotate(0deg)}
+}
+body.garden-moving .floating{animation-play-state:paused!important}
+
+/* Keep flower drift at display refresh rate without forcing layout on every update. */
+#world .bloom{left:0!important;top:0!important;transform:translate3d(var(--flower-x),var(--flower-y),0) translate(-50%,-50%)}
+#garden-glitter{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible}
+#garden-lights{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+#garden-lights::after{content:"";position:absolute;inset:-45% -75%;background:linear-gradient(112deg,transparent 41%,#fff8e814 47%,#fffaf0a0 50%,#e8edff38 53%,transparent 60%);transform:translateX(-24%);animation:light-sweep 32s ease-in-out infinite alternate}
+.light-cloud{position:absolute;display:block;width:clamp(130px,24vw,330px);aspect-ratio:1;border-radius:50%;opacity:.48;will-change:transform;background:radial-gradient(circle,rgba(255,255,255,.72) 0,rgba(255,255,255,.22) 16%,transparent 68%);animation:light-drift 28s ease-in-out infinite alternate}
+.cloud-a{left:8%;top:11%;background:radial-gradient(circle,rgba(255,230,240,.8),rgba(240,196,217,.17) 24%,transparent 70%);animation-duration:34s}
+.cloud-b{left:42%;top:57%;background:radial-gradient(circle,rgba(233,227,255,.78),rgba(209,197,239,.17) 25%,transparent 70%);animation-duration:39s;animation-delay:-13s}
+.cloud-c{right:9%;top:17%;background:radial-gradient(circle,rgba(255,246,207,.72),rgba(255,234,174,.16) 23%,transparent 70%);animation-duration:31s;animation-delay:-8s}
+.cloud-d{right:27%;bottom:-18%;background:radial-gradient(circle,rgba(218,246,236,.75),rgba(191,230,216,.16) 24%,transparent 70%);animation-duration:43s;animation-delay:-21s}
+#garden-glitter{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
+#world{z-index:2}
+#garden-glitter .glitter-orbits{fill:none;stroke:#d8b6c6;stroke-width:1.1;opacity:.21}
+#garden-glitter .glitter-rings{fill:none;stroke:#c9b7d4;stroke-width:1.2;opacity:.25}
+#garden-glitter .glitter-rings circle:nth-child(2n){stroke:#d8c890}
+#garden-glitter .glitter-dots{fill:#d69db7}
+#garden-glitter .glitter-dots .gold{fill:#d8bf7b}
+#garden-glitter .glitter-dots .lilac{fill:#bca9d0}
+#garden-glitter .glitter-dots circle{opacity:.38;transform-box:fill-box;transform-origin:center;animation:particle-shimmer 5.6s ease-in-out infinite alternate}
+#garden-glitter .glitter-dots circle:nth-child(3n){animation-delay:-2.1s}
+#garden-glitter .glitter-dots circle:nth-child(3n + 1){animation-delay:-3.6s}
+#garden-glitter .glitter-motes{opacity:.56;transform-box:fill-box;transform-origin:center;animation:motes-drift 24s ease-in-out infinite alternate}
+@keyframes particle-shimmer{from{opacity:.18}to{opacity:.64}}
+@keyframes light-drift{from{transform:translate3d(-14px,8px,0) scale(.94)}to{transform:translate3d(26px,-17px,0) scale(1.08)}}
+@keyframes motes-drift{from{transform:translate3d(-8px,10px,0)}to{transform:translate3d(12px,-14px,0)}}
+@keyframes light-sweep{from{transform:translateX(-25%)}to{transform:translateX(25%)}}
+.reduced #garden-glitter .glitter-dots circle,.reduced .light-cloud,.reduced #garden-glitter .glitter-motes,.reduced #garden-lights::after{animation:none;opacity:.36}
+@media(prefers-reduced-motion:reduce){#garden-glitter .glitter-dots circle,.light-cloud,#garden-glitter .glitter-motes,#garden-lights::after{animation:none;opacity:.36}}
+
+/* Glitter appears first; each flower fans open before its local vines grow. */
+#garden-glitter{object-fit:cover;opacity:.84;animation:garden-dust-drift 22s ease-in-out infinite alternate}
+.intro-pending .flower{visibility:hidden}
+.floating{isolation:isolate}
+.flower{z-index:1}
+.orbit{z-index:2}
+.flower-vines{position:absolute;width:300%;height:300%;left:-100%;top:-100%;z-index:0;overflow:visible;pointer-events:none}
+.vine-trace{stroke-dasharray:1;stroke-dashoffset:1;animation:vine-unfurl 2400ms cubic-bezier(.25,.55,.35,1) var(--vine-delay,0ms) both}
+.vine-dust{opacity:0;animation:vine-dust-in 1100ms ease-out var(--vine-delay,800ms) both}
+.vines-settled .vine-dust{animation:none;opacity:.42}
+.garden-intro-art{pointer-events:none}
+@keyframes vine-unfurl{to{stroke-dashoffset:0}}
+@keyframes vine-dust-in{from{opacity:0}to{opacity:.42}}
+@keyframes garden-dust-drift{from{transform:translate3d(-3px,5px,0)}to{transform:translate3d(5px,-6px,0)}}
+.reduced #garden-glitter,.paused #garden-glitter{animation:none}
+@media(prefers-reduced-motion:reduce){#garden-glitter,.vine-trace,.vine-dust{animation:none}.vine-trace{stroke-dashoffset:0}.vine-dust{opacity:.42}}
+
+/* iPad creation surface uses a white backdrop and the shared pink accent. */
+body.creator-mode{background:#fff}
+.creator-mode #garden{background:#fff}
+.creator-mode #garden-lights,.creator-mode #garden-glitter{display:none}
+.creator-mode #entry::backdrop,.creator-mode #flowerPreview::backdrop{background:#fff;backdrop-filter:none}
+#entry.choosing-movies .movie-search{border-color:var(--ui-pink-border)}
+.creator-mode button:not(:disabled){border-color:var(--ui-pink-border)}
+#entry .poster-slot,#entry.writing-reviews .review-field textarea,#entry.writing-reviews .early-question textarea{border-color:#e4ccd6}
+@font-face{font-family:Pretendard;src:url('/fonts/PretendardVariable.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+html,body,button,input,textarea,select{font-family:Pretendard,-apple-system,BlinkMacSystemFont,sans-serif}
+#entry #movieNext,#entry.writing-reviews #reviewStep .submit-row #submit{border:0!important;font-size:16px!important}
+/* Warm rose tones for movie search results and glass shadows. */
+#entry .movie-results{color:#947581;background:#fffafbb8;box-shadow:0 10px 30px #b77b8d12}
+#entry .movie-result{color:#79616a;border-bottom-color:#efd7e1}
+#entry .movie-result:hover{background:#fff3f7cc}
+#entry .movie-result b{color:#79616a}
+#entry .movie-result small{color:#a18a92}
+#entry .result-add{color:#b77b93}
+#entry .movie-credit{color:#a48b94}
+#entry,#entry.writing-reviews{box-shadow:inset 0 1px 1px #fff,0 24px 85px #af7b8c1a,0 2px 10px #fff5f880}
+#entry::backdrop{background:#fff9fb26}
+
+.garden-vine-network{position:absolute;left:0;top:0;z-index:0;overflow:visible;pointer-events:none}
+#world>.bloom{z-index:1}
+#world>.bloom.open,#world>.bloom.selected{z-index:23}
+.network-stem{stroke-dasharray:1;stroke-dashoffset:1;animation:network-grow 2500ms cubic-bezier(.25,.55,.35,1) both}
+.network-tendril{stroke-dasharray:1;stroke-dashoffset:1;animation:network-grow 1800ms ease-out 900ms both;opacity:.7}
+.network-dust{opacity:0;animation:vine-dust-in 1500ms ease-out 1100ms both}
+.vines-settled .network-stem,.vines-settled .network-tendril{animation:none;stroke-dashoffset:0}
+.vines-settled .network-dust{animation:none;opacity:.42}
+@keyframes network-grow{to{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){.network-stem,.network-tendril{animation:none;stroke-dashoffset:0}.network-dust{animation:none;opacity:.42}}
+#entry #movieNext:not(:disabled),#entry.writing-reviews #reviewStep .submit-row #submit:not(:disabled){background:var(--ui-pink-soft);color:var(--ui-pink-text);opacity:1;border:0!important}
+#entry #movieNext:not(:disabled):hover,#entry.writing-reviews #reviewStep .submit-row #submit:not(:disabled):hover{background:var(--ui-pink-hover)}
+#seedLoading{outline:none;border-color:#efd5df;background:#fffafb;box-shadow:0 20px 80px #ad788c1c}
+#seedLoading:focus,#seedLoading:focus-visible{outline:none}
+#seedLoading p{color:#795968}
+#seedLoading .loading-eyebrow,#seedLoading .loading-note{color:#a58694}
+.receipt-export::after{display:none}
+#flowerPreview #printReceiptPreview{color:#c77f9a;border-color:#edc4d4}
+#flowerPreview #plantFlower{color:#fff}
+#entry #movieNext,#entry.writing-reviews #reviewStep .submit-row #submit{border-radius:999px;background:#e783a8;color:#fff}
+#entry #movieNext:not(:disabled),#entry.writing-reviews #reviewStep .submit-row #submit:not(:disabled){background:#e783a8;color:#fff}
+#entry #movieNext:not(:disabled):hover,#entry.writing-reviews #reviewStep .submit-row #submit:not(:disabled):hover{background:#dd739a}
+#entry .movie-results,#entry .movie-result,#entry .movie-result:hover{background:#fff}
+
+/* Soft pink and lime light dust drifts across the flower field. */
+#garden-glitter{width:104%;height:104%;left:-2%;top:-2%;opacity:.94;animation:garden-dust-float 19s ease-in-out infinite alternate}
+@keyframes garden-dust-float{0%{transform:translate3d(-9px,11px,0) rotate(-.35deg)}50%{transform:translate3d(5px,-3px,0) rotate(.15deg)}100%{transform:translate3d(13px,-13px,0) rotate(.45deg)}}
+.reduced #garden-glitter,.paused #garden-glitter{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){#garden-glitter{animation:none}}
+
+.creator-mode #movieResults .movie-search-loading{display:block;padding:4px 8px 0}
+#entry .movie-results:not(:empty){border-color:#dfc7d1;box-shadow:0 12px 30px #a77e9014}
+#entry.choosing-movies .movie-search,#entry.choosing-movies .movie-search:focus-within{border-color:#dfc7d1;outline-color:#dfc7d1}
+dialog .close{display:grid;place-items:center;line-height:1;padding:0}
+#flowerPreview.has-ticket-image>#receiptImage{margin-inline:auto;object-position:center}
+#seedLoading{background:#fff}
+.loading-dots{display:flex;justify-content:center;gap:7px;margin:18px 0}
+.loading-dots i{width:5px;height:5px;border-radius:50%;background:#c58da4;animation:loading-dot 1.2s ease-in-out infinite}
+.loading-dots i:nth-child(2){animation-delay:.2s}.loading-dots i:nth-child(3){animation-delay:.4s}
+@keyframes loading-dot{0%,80%,100%{opacity:.25}40%{opacity:1}}
+#projectionDone h2{width:max-content;max-width:100%;margin-inline:auto}
+#projectionDone button{display:block;width:min(100%,285px);margin:12px auto 0;min-height:44px;border-radius:999px}
+#projectionDone #printReceipt{margin-top:30px;color:#c77f9a;border-color:#edc4d4;background:#fff}
+#projectionDone #projectionAgain{background:#e783a8;color:#fff;border-color:#e783a8}
+#projectionDone #projectionAgain:hover{background:#dd739a}
+#garden-glitter{width:112%;height:112%;left:-6%;top:-6%;animation:garden-dust-float 13s ease-in-out infinite alternate;will-change:transform}
+@keyframes garden-dust-float{0%{transform:translate3d(-30px,25px,0) rotate(-.7deg)}50%{transform:translate3d(4px,-6px,0) rotate(.15deg)}100%{transform:translate3d(34px,-29px,0) rotate(.8deg)}}
+@media(prefers-reduced-motion:reduce){#garden-glitter{animation:none}}
+@keyframes seed-settle{0%{opacity:0;transform:translateY(-13px) rotate(-8deg)}12%,38%{opacity:1;transform:translateY(0) rotate(0)}46%,100%{opacity:0;transform:scale(.65)}}
+@media(prefers-reduced-motion:reduce){.growth-seed{display:none}}
+#receipt .ticket-axis strong{font-weight:400}
+#receipt .ticket-color-names{font-size:17px;font-weight:400}
+@media(max-width:600px){#receipt .ticket-color-names{font-size:13px}}
+@media screen{
+ #flowerPreview.has-ticket-image[open]{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto auto auto;gap:16px;padding:48px 32px 28px;overflow-y:auto;align-content:start}
+ #flowerPreview.has-ticket-image>#receiptImage{grid-column:1/-1;grid-row:1;width:min(100%,460px);height:auto;max-height:none;max-width:100%;justify-self:center;align-self:start;margin:0 auto}
+ #flowerPreview.has-ticket-image>#receiptImageStatus{grid-column:1/-1;grid-row:2;text-align:center;margin:0}
+ #flowerPreview.has-ticket-image>.receipt-export{grid-column:1;grid-row:3;margin:0;display:block;align-self:start}
+ #flowerPreview.has-ticket-image>.preview-actions{grid-column:2;grid-row:3;margin:0;display:block;align-self:start}
+ #flowerPreview.has-ticket-image>.receipt-export button,#flowerPreview.has-ticket-image>.preview-actions button{width:100%;min-height:46px;margin:0}
+ #flowerPreview.has-ticket-image>#plantStatus{grid-column:1/-1;grid-row:4;margin:0;text-align:center}
+}
+#flowerPreview .preview-private{display:none!important}
+@media screen{
+ #flowerPreview.has-ticket-image[open]{width:calc(100vw - 20px);max-width:calc(100vw - 20px);padding:44px 0 20px;max-height:96dvh;border-radius:18px;column-gap:12px}
+ #flowerPreview.has-ticket-image>#receiptImage{width:100%;max-width:100%;height:auto;max-height:none;margin:0;grid-column:1/-1;justify-self:stretch}
+ #flowerPreview.has-ticket-image>.receipt-export{margin-left:16px}
+ #flowerPreview.has-ticket-image>.preview-actions{margin-right:16px}
+}
+dialog .close,#entry .remove-movie,#entry .movie-search button,#entry .step-back,#left,#right,#pause,#about{display:inline-flex;align-items:center;justify-content:center;line-height:1;padding:0;gap:0}
+dialog .close>svg,#entry .movie-search button>svg{display:block;flex:none;margin:0}
+#entry .movie-search button{width:40px;height:40px;flex:none}
+#entry .remove-movie,dialog .close:not(:has(svg)){font-size:0}
+#entry .remove-movie::before,dialog .close:not(:has(svg))::before{content:"";display:block;width:13px;height:13px;flex:none;background:linear-gradient(currentColor,currentColor) center/100% 1.5px no-repeat,linear-gradient(currentColor,currentColor) center/1.5px 100% no-repeat;transform:rotate(45deg)}
+@media screen{
+ #flowerPreview.has-ticket-image[open]{width:var(--entry-width,min(760px,94vw));max-width:var(--entry-max-width,94vw);padding:44px 10px 20px;border-radius:26px;column-gap:12px}
+ #flowerPreview.has-ticket-image>#receiptImage{width:100%;max-width:100%;margin:0;justify-self:stretch}
+ #flowerPreview.has-ticket-image>.receipt-export{margin-left:0}
+ #flowerPreview.has-ticket-image>.preview-actions{margin-right:0}
+}
+@media screen{
+ .creator-mode #entry,.creator-mode #entry.choosing-movies,.creator-mode #entry.writing-reviews,.creator-mode #flowerPreview,.creator-mode #flowerPreview.has-ticket-image[open],.creator-mode #seedLoading,.creator-mode #projectionDone,.creator-mode #creatorGate{box-sizing:border-box;width:min(760px,94vw);max-width:94vw;height:90dvh;max-height:90dvh;min-height:0;border-radius:26px;margin:auto;overflow-y:auto}
+ .creator-mode #seedLoading[open],.creator-mode #projectionDone[open],.creator-mode #creatorGate[open]{display:flex;flex-direction:column;align-items:center;justify-content:center}
+ .creator-mode #seedLoading .growth-scene{flex-shrink:0}
+ .creator-mode #projectionDone button{flex-shrink:0}
+}
+@media screen{
+ .creator-mode #entry.choosing-movies{height:auto;min-height:0;max-height:90dvh;padding:32px 42px;overflow-y:auto}
+}
+@media screen and (max-width:600px){.creator-mode #entry.choosing-movies{padding:26px 22px}}
+@media screen{
+ .creator-mode #entry.choosing-movies{inset:50% auto auto 50%;transform:translate(-50%,-50%);margin:0;height:fit-content;min-height:0;max-height:90dvh}
+}
+
+/* Live result: share the garden detail hierarchy without rasterizing text. */
+@media screen {
+ #flowerPreview.live-result[open]{display:grid!important;grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr) auto auto;gap:12px 16px;width:min(960px,94vw)!important;max-width:94vw!important;height:min(90dvh,820px)!important;padding:28px 32px 24px!important;overflow:hidden;background:#ffffffed;backdrop-filter:blur(18px);border:1px solid #f1d9e4;border-radius:26px;box-sizing:border-box}
+ #flowerPreview.live-result>.ticket-sheet{display:flex!important;flex-direction:column;grid-column:1/-1;grid-row:1;min-height:0;overflow:auto;padding:0;margin:0}
+ #flowerPreview.live-result>.close{position:absolute;top:14px;right:14px;z-index:2}
+ #flowerPreview.live-result .receipt-head{display:flex;align-items:center;justify-content:space-between;padding:0 36px 12px 0;margin:0;gap:12px;flex:none}
+ #flowerPreview.live-result .receipt-head h2,#flowerPreview.live-result .receipt-head time{font-size:11px;line-height:1.5;font-weight:400;color:#a28390;margin:0}
+ #flowerPreview.live-result .result-tab{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:28px;align-items:start;min-height:0}
+ #flowerPreview.live-result .result-visual{position:sticky;top:0;align-self:start;display:flex;align-items:center;justify-content:center;min-height:280px;padding:24px 0}
+ #flowerPreview.live-result #previewFlower{width:100%;max-width:340px;margin:0;grid-area:auto;position:static;aspect-ratio:1;overflow:visible}
+ #flowerPreview.live-result #previewFlower svg{display:block;width:100%;height:100%;overflow:visible}
+ #flowerPreview.live-result .result-content{min-width:0}
+ #flowerPreview.live-result #receipt{display:block;position:static;border:0;padding:4px 0 12px;margin:0;max-width:none;color:#54424a}
+ #flowerPreview.live-result .panel-source{font-size:10px;color:#a28390}
+ #flowerPreview.live-result #receipt h2{font-size:24px;line-height:1.4;font-weight:600;letter-spacing:-.04em;word-break:keep-all;overflow-wrap:anywhere;margin:8px 0 14px}
+ #flowerPreview.live-result #receipt .taste-summary{font-size:14px;line-height:1.8;white-space:normal;display:block;overflow:visible;margin:0 0 22px;color:#7e6873;-webkit-line-clamp:unset;line-clamp:unset}
+ #flowerPreview.live-result .panel-films{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 22px}
+ #flowerPreview.live-result .panel-film img,#flowerPreview.live-result .panel-poster-fallback{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;border-radius:8px;background:#f5eff1}
+ #flowerPreview.live-result .panel-film h3{font-size:12px;line-height:1.45;font-weight:500;word-break:keep-all;margin:8px 0 4px}
+ #flowerPreview.live-result .panel-film>span{font-size:11px;color:#a28390}
+ #flowerPreview.live-result .panel-axes{display:grid;gap:10px;margin:0 0 20px}
+ #flowerPreview.live-result .panel-axis{height:auto;display:grid;grid-template-rows:auto 3px;gap:6px}
+ #flowerPreview.live-result .panel-axis>div:first-child{display:flex;align-items:center;gap:8px;font-size:12px;line-height:1.5}
+ #flowerPreview.live-result .panel-axis b{font-weight:500}
+ #flowerPreview.live-result .panel-axis span{margin-left:auto;font-weight:400;color:#9c7d8b}
+ #flowerPreview.live-result .panel-axis em{font-style:normal;font-size:11px;min-width:20px;text-align:right;color:#9c7d8b}
+ #flowerPreview.live-result .panel-axis-track{height:3px!important;background:#f1e9ed;border-radius:0}
+ #flowerPreview.live-result .panel-axis-track i{background:var(--flower-accent);height:3px!important;display:block}
+ #flowerPreview.live-result .panel-color{display:flex;gap:12px;align-items:center;padding-top:10px;border-top:1px solid #f0e5ea}
+ #flowerPreview.live-result .panel-color>i{width:30px;height:30px;border-radius:50%;flex:none}
+ #flowerPreview.live-result .panel-color b{font-size:12px;font-weight:400}
+ #flowerPreview.live-result .panel-color p{font-size:11px;line-height:1.7;color:#9c7d8b;margin:4px 0 0;white-space:pre-line}
+ #flowerPreview.live-result>#receiptImage{display:none!important}
+ #flowerPreview.live-result>.receipt-export{display:block;grid-column:1;grid-row:2;margin:0}
+ #flowerPreview.live-result>.preview-actions{display:block;grid-column:2;grid-row:2;margin:0}
+ #flowerPreview.live-result>.receipt-export button,#flowerPreview.live-result>.preview-actions button{width:100%;height:46px;min-height:46px;font-size:14px;border-radius:999px;padding:10px 14px;margin:0}
+ #flowerPreview.live-result>.receipt-export button{border:1px solid #e8a6c0;color:#bc6b8c;background:white}
+ #flowerPreview.live-result #plantFlower{border:0;background:#e783a8;color:white}
+ #flowerPreview.live-result>#plantStatus,#flowerPreview.live-result>#receiptImageStatus{grid-column:1/-1;grid-row:3;font-size:12px;line-height:1.5;margin:0;text-align:center;color:#b7718f}
+ #flowerPreview.live-result>#plantStatus:empty,#flowerPreview.live-result>#receiptImageStatus:empty{display:none}
+}
+@media screen and (max-width:600px){
+ #flowerPreview.live-result[open]{padding:28px 20px 20px!important;gap:10px}
+ #flowerPreview.live-result .result-tab{grid-template-columns:1fr;gap:8px}
+ #flowerPreview.live-result .result-visual{position:static;min-height:0;padding:0}
+ #flowerPreview.live-result #previewFlower{max-width:220px}
+ #flowerPreview.live-result #receipt h2{font-size:22px}
+}
